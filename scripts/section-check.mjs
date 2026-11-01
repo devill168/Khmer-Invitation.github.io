@@ -2,15 +2,19 @@ import { chromium } from "@playwright/test";
 import fs from "node:fs/promises";
 import path from "node:path";
 
+const baseURL = process.env.PREVIEW_URL || "http://127.0.0.1:5173";
 const root = path.resolve("output", "sections");
 await fs.mkdir(root, { recursive: true });
 const browser = await chromium.launch({ headless: true, executablePath: "C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe" });
-const viewports = [
+const allViewports = [
   { name: "320x568", width: 320, height: 568 },
   { name: "390x844", width: 390, height: 844 },
   { name: "740x360", width: 740, height: 360 },
   { name: "1280x800", width: 1280, height: 800 },
 ];
+const viewports = process.env.VIEWPORT
+  ? allViewports.filter(({ name }) => name === process.env.VIEWPORT)
+  : allViewports;
 const sections = ["cover", "words", "couple", "countdown", "programme", "story", "candle", "gallery", "venue", "gift", "finale"];
 const report = [];
 
@@ -20,14 +24,14 @@ for (const viewport of viewports) {
   const errors = [];
   page.on("console", (message) => message.type() === "error" && errors.push(message.text()));
   page.on("pageerror", (error) => errors.push(error.message));
-  await page.goto("http://127.0.0.1:5173/", { waitUntil: "networkidle" });
+  await page.goto(baseURL, { waitUntil: "networkidle" });
   await page.locator("#open-invitation").click({ force: true });
   await page.waitForTimeout(6000);
   const checks = [];
 
   for (const id of sections) {
     const metrics = await page.locator(`#${id}`).evaluate((element) => ({ top: element.offsetTop, height: element.offsetHeight }));
-    const ratio = id === "story" ? .42 : id === "candle" ? .2 : 0;
+    const ratio = id === "programme" ? .36 : id === "story" ? .42 : id === "candle" ? .2 : 0;
     await page.evaluate(({ y }) => window.scrollTo(0, y), { y: metrics.top + metrics.height * ratio });
     await page.waitForTimeout(700);
     const state = await page.evaluate(() => ({ scrollWidth: document.documentElement.scrollWidth, width: innerWidth, x: scrollX, y: scrollY }));
@@ -52,5 +56,6 @@ for (const viewport of viewports) {
 }
 
 await browser.close();
-await fs.writeFile(path.join(root, "report.json"), JSON.stringify(report, null, 2));
+const reportName = process.env.VIEWPORT ? `report-${process.env.VIEWPORT}.json` : "report.json";
+await fs.writeFile(path.join(root, reportName), JSON.stringify(report, null, 2));
 console.log(JSON.stringify(report, null, 2));

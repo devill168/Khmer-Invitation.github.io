@@ -62,19 +62,12 @@ const dateCells = (lang) => {
     </div>`).join("");
 };
 
-const ritualIcon = (type) => {
-  const paths = {
-    lotus: "M24 38C17 29 10 25 3 24c5-5 11-7 18-5-1-6 0-11 3-15 4 4 5 9 3 15 7-2 13 0 18 5-8 1-15 5-21 14Z",
-    ring: "M13 26a11 11 0 1 0 22 0 11 11 0 1 0-22 0Zm7-14 4-7 4 7-4 5-4-5Z",
-    blessing: "M24 42V13M8 19c8 1 13 5 16 13M40 19c-8 1-13 5-16 13M11 38c8 5 18 5 26 0",
-    dinner: "M10 5v16c0 4 3 7 7 7V5M24 5v37M36 5v15c0 4-3 7-7 7",
-  };
-  return `<svg class="ritual-icon" viewBox="0 0 48 48" aria-hidden="true"><path d="${paths[type] || paths.lotus}"/></svg>`;
-};
-
-const programmeItems = () => wedding.programme.map((item) => `
-  <article class="programme-item">
-    <div class="programme-icon">${ritualIcon(item.icon)}</div>
+const programmeItems = () => wedding.programme.map((item, index) => `
+  <article class="programme-item" style="--agenda-index:${index}">
+    <div class="programme-icon">
+      <span class="programme-step" aria-hidden="true">${String(index + 1).padStart(2, "0")}</span>
+      <img src="${item.icon}" alt="" loading="lazy" decoding="async" aria-hidden="true" />
+    </div>
     <div class="programme-copy">
       <time class="lang-km">${item.timeKh}</time><time class="lang-en">${item.timeEn}</time>
       <p class="lang-km">${item.titleKh}</p><p class="lang-en">${item.titleEn}</p>
@@ -281,6 +274,10 @@ document.querySelector("#app").innerHTML = `
           <h2 class="section-title lang-en">${copy.en.programme}</h2>
           <p class="programme-date lang-km">${copy.km.programmeDate}</p><p class="programme-date lang-en">${copy.en.programmeDate}</p>
         </div>
+        <figure class="programme-art" aria-hidden="true">
+          <span class="programme-art-halo"></span>
+          <img src="${wedding.assets.programmeArt}" alt="" loading="lazy" decoding="async" />
+        </figure>
         <div class="programme-timeline">
           <svg class="gold-thread" viewBox="0 0 8 1000" preserveAspectRatio="none" aria-hidden="true"><path d="M4 0C8 100 0 180 4 260s4 170 0 250 4 180 0 260 4 150 0 230"/></svg>
           ${programmeItems()}
@@ -565,12 +562,24 @@ function initMotion() {
       }, 0);
   }
   gsap.to(".gold-thread path", { strokeDashoffset: 0, ease: "none", scrollTrigger: { trigger: ".programme-timeline", start: "top 78%", end: "bottom 70%", scrub: true } });
-  document.querySelectorAll(".programme-item").forEach((item) => {
-    const path = item.querySelector(".ritual-icon path");
-    const length = path.getTotalLength();
-    gsap.set(path, { strokeDasharray: length, strokeDashoffset: length });
-    gsap.to(path, { strokeDashoffset: 0, duration: 1.1, ease: "power2.inOut", scrollTrigger: { trigger: item, start: "top 82%", once: true } });
-    gsap.from(item, { x: 34, opacity: 0, duration: .9, scrollTrigger: { trigger: item, start: "top 84%", once: true } });
+  gsap.fromTo(".programme-art img",
+    { scale: .78, rotate: -3, opacity: 0, filter: "blur(7px) brightness(.7)" },
+    { scale: 1, rotate: 0, opacity: 1, filter: "blur(0px) brightness(1)", duration: 1.45, ease: "power3.out", scrollTrigger: { trigger: ".programme-art", start: "top 86%", once: true } });
+  gsap.fromTo(".programme-art-halo", { scale: .55, opacity: 0 }, { scale: 1, opacity: 1, duration: 1.6, ease: "power2.out", scrollTrigger: { trigger: ".programme-art", start: "top 86%", once: true } });
+  document.querySelectorAll(".programme-item").forEach((item, index) => {
+    const icon = item.querySelector(".programme-icon img");
+    const step = item.querySelector(".programme-step");
+    const copyNodes = item.querySelectorAll(".programme-copy > *");
+    const direction = index % 2 === 0 ? 1 : -1;
+    gsap.timeline({ scrollTrigger: { trigger: item, start: "top 88%", once: true } })
+      .fromTo(item,
+        { x: direction * 46, y: 24, opacity: 0, rotate: direction * .8 },
+        { x: 0, y: 0, opacity: 1, rotate: 0, duration: .9, ease: "power3.out" })
+      .fromTo(icon,
+        { scale: .42, rotate: direction * -14, opacity: 0, filter: "blur(5px)" },
+        { scale: 1, rotate: 0, opacity: 1, filter: "blur(0px)", duration: .75, ease: "back.out(1.8)" }, .1)
+      .fromTo(step, { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: .5, ease: "back.out(2.2)" }, .2)
+      .fromTo(copyNodes, { y: 14, opacity: 0 }, { y: 0, opacity: 1, duration: .55, stagger: .06, ease: "power2.out" }, .22);
   });
   gsap.utils.toArray(".gallery-item").forEach((item, index) => {
     const image = item.querySelector("img");
