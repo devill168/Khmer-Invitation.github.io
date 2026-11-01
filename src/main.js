@@ -398,6 +398,7 @@ const musicToggle = document.querySelector("#music-toggle");
 const musicIcon = musicToggle.querySelector(".music-icon");
 const invitationMusic = document.querySelector("#invitation-music");
 const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const mobileSafeMode = matchMedia("(max-width: 799px), (pointer: coarse)").matches;
 let opened = false;
 let currentLang = "km";
 
@@ -525,7 +526,13 @@ function initCandle() {
 }
 
 function initMotion() {
-  if (reducedMotion) return;
+  if (reducedMotion || mobileSafeMode) {
+    if (mobileSafeMode) {
+      gsap.set(".gold-thread path", { strokeDashoffset: 0 });
+      gsap.set(".candle-row > i", { scaleY: 1 });
+    }
+    return;
+  }
   if (matchMedia("(min-width: 800px)").matches) {
     const lenis = new Lenis({ duration: 1.05, smoothWheel: true });
     const raf = (time) => { lenis.raf(time); requestAnimationFrame(raf); };
@@ -617,7 +624,9 @@ function initExperience() {
   if (experienceReady) return;
   experienceReady = true;
   document.documentElement.classList.remove("invitation-locked");
-  addEventListener("scroll", () => document.querySelector(".topbar").classList.toggle("is-scrolled", scrollY > 40), { passive: true });
+  if (!mobileSafeMode) {
+    addEventListener("scroll", () => document.querySelector(".topbar").classList.toggle("is-scrolled", scrollY > 40), { passive: true });
+  }
   updateCountdown();
   if (wedding.date.iso) setInterval(updateCountdown, 1000);
   initGallery();
@@ -633,6 +642,12 @@ function showCover(introDelay = 0) {
   envelopeScreen.setAttribute("aria-hidden", "true");
   cover.removeAttribute("aria-hidden");
   const content = cover.querySelectorAll(".cover-intro, .english-names, .respect, .date-row, .lunar, .venue, .scroll-cue");
+  if (reducedMotion || mobileSafeMode) {
+    envelopeScreen.style.display = "none";
+    gsap.set(content, { clearProps: "transform,opacity" });
+    initExperience();
+    return;
+  }
   gsap.timeline()
     .fromTo(".cover-photo", { scale: 1.055 }, { scale: 1, duration: 1.15, ease: "power2.out" })
     .fromTo(content, { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: .62, stagger: .045, ease: "power3.out" }, .08 + introDelay);
@@ -684,7 +699,8 @@ function openInvitation() {
     .call(showCover, [.45], 2.48)
     .to(envelopeScreen, { opacity: 0, duration: .78, ease: "power2.inOut" }, 2.48)
     .to(card, { scale: 1.08, opacity: 0, duration: .58, ease: "power2.in" }, 2.55)
-    .set(effects, { opacity: 0 }, 3.3);
+    .set(effects, { opacity: 0 }, 3.3)
+    .set(envelopeScreen, { display: "none" }, 3.31);
 }
 
 openButton.addEventListener("click", openInvitation);

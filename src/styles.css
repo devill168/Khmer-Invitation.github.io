@@ -508,3 +508,159 @@ button { color: inherit; font: inherit; }
   width: min(150px, 30vw);
   height: auto;
 }
+
+/* Stable native scrolling for mobile browsers and embedded app browsers. */
+@media (max-width: 799px), (pointer: coarse) {
+  html,
+  body {
+    overscroll-behavior-y: none;
+  }
+
+  body {
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .experience {
+    touch-action: pan-y pinch-zoom;
+  }
+
+  .envelope-screen,
+  .cover {
+    height: 100vh;
+    height: 100svh;
+    min-height: 100svh;
+  }
+
+  .topbar,
+  .topbar.is-scrolled {
+    position: absolute;
+    height: 64px !important;
+    padding: 6px max(14px, env(safe-area-inset-right)) 6px max(14px, env(safe-area-inset-left));
+    background: linear-gradient(rgba(8,9,6,.86), rgba(8,9,6,.3), transparent);
+    transition: none;
+    contain: paint;
+    will-change: auto;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
+  .name-logo--mini {
+    width: 116px;
+    height: 48px;
+  }
+
+  .round-button {
+    width: 34px;
+    height: 34px;
+  }
+
+  .cover-content {
+    top: 72px;
+  }
+
+  .round-button,
+  .countdown-card,
+  .programme-item,
+  .map-badge,
+  .qr-card {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
+  .map-frame iframe {
+    pointer-events: none;
+  }
+
+  .envelope-stage,
+  .inner-card,
+  .flap,
+  .story-track,
+  .section3-photo img {
+    will-change: auto;
+  }
+
+  .story-section {
+    height: auto;
+    padding: 100px 0 70px;
+  }
+
+  .story-sticky {
+    position: relative;
+    top: auto;
+    height: auto;
+    min-height: 0;
+    overflow: hidden;
+    padding-bottom: 20px;
+  }
+
+  .story-heading {
+    position: relative;
+    left: auto;
+    top: auto;
+    width: min(100%, 520px);
+    max-width: none;
+    margin: 0 auto 30px;
+    padding: 0 16px;
+  }
+
+  .story-track {
+    width: auto;
+    height: auto;
+    display: grid;
+    align-items: stretch;
+    gap: 24px;
+    padding: 0 16px;
+    transform: none !important;
+  }
+
+  .story-card,
+  .story-card:nth-child(even) {
+    width: min(100%, 470px);
+    height: min(68svh, 570px);
+    min-height: 380px;
+    margin: 0 auto;
+    transform: none;
+  }
+
+  .story-end {
+    width: 100%;
+    height: auto;
+    min-height: 220px;
+  }
+
+  .name-logo--story {
+    width: min(420px, 88vw);
+  }
+
+  .gold-thread path {
+    stroke-dashoffset: 0;
+  }
+
+  .candle-row > i {
+    transform: scaleY(1);
+  }
+
+  .prompt-line,
+  .scroll-cue i,
+  .blessing-marquee > div,
+  .lotus-lantern.is-floating {
+    animation: none !important;
+  }
+
+  .ambient-grain,
+  .cover-grain,
+  .programme-section::before {
+    mix-blend-mode: normal;
+  }
+}
+
+@media (orientation: landscape) and (max-height: 500px) and (pointer: coarse) {
+  .topbar,
+  .topbar.is-scrolled {
+    height: 54px !important;
+  }
+
+  .cover-content {
+    top: 58px;
+  }
+}
