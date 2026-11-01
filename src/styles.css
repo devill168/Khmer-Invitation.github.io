@@ -1,3 +1,11 @@
+@font-face {
+  font-family: "Khmer OS Muol Light";
+  src: url("/assets/fonts/KhmerOSmuollight.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
 :root {
   --olive-950: #10120d;
   --olive-900: #171b12;
@@ -214,6 +222,7 @@ button { color: inherit; font: inherit; }
 .programme-step { position: absolute; z-index: 2; right: -8px; top: -8px; display: grid; place-items: center; width: 27px; aspect-ratio: 1; border-radius: 50%; border: 2px solid #eee3cf; background: #b17d2c; color: #fff7e7; font: 600 .63rem/1 "Cormorant Garamond", serif; box-shadow: 0 4px 10px rgba(82,54,12,.2); }
 .programme-copy { position: relative; z-index: 1; }
 .programme-copy time { display: block; font: 600 .78rem/1.5 "Cormorant Garamond", serif; letter-spacing: .09em; color: #8b6928; }
+.programme-copy time.lang-km { font-family: "Khmer OS Muol Light", "Moul", serif; font-weight: 400; line-height: 1.8; letter-spacing: 0; }
 .programme-copy p { margin: 5px 0 0; padding: .2em 0; line-height: 1.8; color: #292719; }
 
 .story-section { position: relative; height: 520svh; background: #191d12; color: var(--cream); }
