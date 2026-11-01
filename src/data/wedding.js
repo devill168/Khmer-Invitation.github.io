@@ -119,3 +119,4 @@ export const wedding = {
     music: assetUrl("wedding-song.mp3"),
   },
 };
+
