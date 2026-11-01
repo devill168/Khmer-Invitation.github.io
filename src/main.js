@@ -322,7 +322,8 @@ document.querySelector("#app").innerHTML = `
         ${crest("venue-crest")}
         <p class="section-kicker lang-km">${copy.km.venueKicker}</p><p class="section-kicker lang-en">${copy.en.venueKicker}</p>
         <h2 class="section-title" id="venue-title"><span class="lang-km">${wedding.venue.kh}</span><span class="lang-en">${wedding.venue.en}</span></h2>
-        <p class="venue-address"><span class="lang-km">${wedding.venue.addressKh}</span><span class="lang-en">${wedding.venue.addressEn}</span></p>
+        ${wedding.venue.addressKh !== wedding.venue.kh ? `<p class="venue-address lang-km">${wedding.venue.addressKh}</p>` : ""}
+        <p class="venue-address lang-en">${wedding.venue.addressEn}</p>
         <div class="venue-meta"><span>${wedding.date.weekdayKh}</span><i>✦</i><span>${wedding.date.dayKh} ${wedding.date.monthKh} ${wedding.date.yearKh}</span><i>✦</i><span>${wedding.date.timeKh}</span></div>
         <div class="map-frame">
           <div class="map-badge" aria-hidden="true">

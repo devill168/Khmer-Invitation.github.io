@@ -25,7 +25,7 @@ export const wedding = {
     timeEn: "[5:30 PM]",
   },
   venue: {
-    kh: "[ទីតាំងពិធីមង្គលការ]",
+    kh: "ស្ថិតនៅ ដឹ ព្រេមៀ សេនធ័រ សែនសុខ (អគារ A)",
     en: "[Wedding venue]",
     addressKh: "ស្ថិតនៅ ដឹ ព្រេមៀ សេនធ័រ សែនសុខ (អគារ A)",
     addressEn: "The Premier Center Sen Sok (Building A)",

@@ -280,7 +280,7 @@ button { color: inherit; font: inherit; }
 .venue-shell { max-width: 870px; }
 .venue-crest { width: clamp(100px, 22vw, 160px); color: #9a712b; }
 .venue-address { max-width: 620px; margin: 10px auto; line-height: 1.9; color: #655f46; }
-.venue-meta { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin: 22px 0 35px; color: #765f2e; font-size: .75rem; }
+.venue-meta { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin: 22px 0 35px; color: #765f2e; font-size: clamp(.88rem, 1.8vw, 1.15rem); line-height: 1.8; }
 .venue-meta i { color: #b58b3b; }
 .map-frame { min-height: 380px; position: relative; isolation: isolate; padding: 10px; background: linear-gradient(135deg,#654616 0%,#d9b85e 24%,#806022 48%,#efd88d 74%,#614417 100%); clip-path: polygon(18px 0,calc(100% - 18px) 0,100% 18px,100% calc(100% - 18px),calc(100% - 18px) 100%,18px 100%,0 calc(100% - 18px),0 18px); filter: drop-shadow(0 24px 28px rgba(63,50,25,.2)); }
 .map-frame::after { content: ""; position: absolute; z-index: 2; inset: 10px; pointer-events: none; box-shadow: inset 0 0 0 1px rgba(255,245,207,.42), inset 0 0 36px rgba(21,27,15,.16); }
@@ -441,8 +441,8 @@ button { color: inherit; font: inherit; }
   .person-card > span { font-size: clamp(.84rem, 3.5vw, .96rem); }
   .person-card p { font-size: clamp(.86rem, 3.45vw, .98rem); }
   .story-caption p,
-  .candle-copy span,
-  .venue-meta { font-size: .76rem; }
+  .candle-copy span { font-size: .76rem; }
+  .venue-meta { font-size: clamp(.86rem, 3.6vw, .98rem); }
   .countdown-grid span { font-size: .6rem; }
   .programme-copy time { font-size: .75rem; }
   .programme-copy p { font-size: .88rem; line-height: 1.75; }
@@ -458,8 +458,8 @@ button { color: inherit; font: inherit; }
   .programme-copy time { font-size: .8rem; }
   .programme-copy p { font-size: 1rem; line-height: 1.8; }
   .story-caption p,
-  .candle-copy span,
-  .venue-meta { font-size: .82rem; }
+  .candle-copy span { font-size: .82rem; }
+  .venue-meta { font-size: clamp(.96rem, 1.8vw, 1.12rem); }
   .share-grid span { font-size: .68rem; }
 }
 
