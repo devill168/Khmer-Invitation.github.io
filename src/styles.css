@@ -207,7 +207,7 @@ button { color: inherit; font: inherit; }
 .programme-section { position: relative; overflow: hidden; padding: clamp(110px, 14vw, 170px) 0; background: radial-gradient(circle at 50% 17%, rgba(201,159,73,.13), transparent 30%), linear-gradient(180deg, #f4ecdc, #e9dcc4); }
 .programme-section::before { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .23; background-image: url("/assets/khmer-invite-starter-kit/textures/paper-cream.webp"); background-size: 720px; mix-blend-mode: multiply; }
 .programme-shell { position: relative; z-index: 1; max-width: 900px; }
-.programme-date { margin: 4px 0 24px; text-align: center; line-height: 1.8; color: #7b6a43; }
+.programme-date { margin: 4px 0 24px; text-align: center; font-size: clamp(1.05rem, 2.4vw, 1.3rem); line-height: 1.8; color: #7b6a43; }
 .programme-art { position: relative; width: min(480px, 82vw); aspect-ratio: 1; display: grid; place-items: center; margin: 0 auto clamp(34px, 7vw, 70px); }
 .programme-art-halo { position: absolute; inset: 14%; border-radius: 50%; background: radial-gradient(circle, rgba(194,148,55,.24), rgba(194,148,55,.05) 46%, transparent 70%); box-shadow: 0 0 0 1px rgba(158,111,30,.08), 0 25px 80px rgba(80,57,20,.13); }
 .programme-art img { position: relative; z-index: 1; width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 18px 22px rgba(72,49,15,.17)); }
@@ -446,6 +446,7 @@ button { color: inherit; font: inherit; }
   .countdown-grid span { font-size: .6rem; }
   .programme-copy time { font-size: .75rem; }
   .programme-copy p { font-size: .88rem; line-height: 1.75; }
+  .programme-date { font-size: clamp(1.06rem, 4.5vw, 1.16rem); }
   .story-hint { font-size: .72rem; }
   .story-caption h3 { font-size: clamp(.86rem, 3.6vw, 1rem); }
   .share-grid span { font-size: .65rem; }
@@ -457,6 +458,7 @@ button { color: inherit; font: inherit; }
   .section-kicker { font-size: .8rem; }
   .programme-copy time { font-size: .8rem; }
   .programme-copy p { font-size: 1rem; line-height: 1.8; }
+  .programme-date { font-size: clamp(1.12rem, 2vw, 1.3rem); }
   .story-caption p,
   .candle-copy span { font-size: .82rem; }
   .venue-meta { font-size: clamp(.96rem, 1.8vw, 1.12rem); }
