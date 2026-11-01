@@ -1,0 +1,154 @@
+[
+  {
+    "viewport": {
+      "name": "phone-320x568",
+      "width": 320,
+      "height": 568
+    },
+    "overflowBefore": {
+      "scrollWidth": 320,
+      "clientWidth": 320,
+      "overflowing": false
+    },
+    "overflowAfter": {
+      "scrollWidth": 320,
+      "clientWidth": 320,
+      "overflowing": false
+    },
+    "cover": {
+      "visible": true,
+      "rect": {
+        "top": 0,
+        "bottom": 568,
+        "width": 320,
+        "height": 568
+      },
+      "content": {
+        "top": 104.239990234375,
+        "bottom": 475.760009765625,
+        "width": 247.67999267578125,
+        "height": 371.52001953125
+      },
+      "viewport": {
+        "width": 320,
+        "height": 568
+      }
+    },
+    "consoleErrors": [],
+    "pageErrors": []
+  },
+  {
+    "viewport": {
+      "name": "phone-390x844",
+      "width": 390,
+      "height": 844
+    },
+    "overflowBefore": {
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "overflowing": false
+    },
+    "overflowAfter": {
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "overflowing": false
+    },
+    "cover": {
+      "visible": true,
+      "rect": {
+        "top": 0,
+        "bottom": 844,
+        "width": 390,
+        "height": 844
+      },
+      "content": {
+        "top": 92.828125,
+        "bottom": 759.609375,
+        "width": 358,
+        "height": 666.78125
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    "consoleErrors": [],
+    "pageErrors": []
+  },
+  {
+    "viewport": {
+      "name": "landscape-740x360",
+      "width": 740,
+      "height": 360
+    },
+    "overflowBefore": {
+      "scrollWidth": 740,
+      "clientWidth": 740,
+      "overflowing": false
+    },
+    "overflowAfter": {
+      "scrollWidth": 740,
+      "clientWidth": 740,
+      "overflowing": false
+    },
+    "cover": {
+      "visible": true,
+      "rect": {
+        "top": 0,
+        "bottom": 360,
+        "width": 740,
+        "height": 360
+      },
+      "content": {
+        "top": 81.47999572753906,
+        "bottom": 284.52001953125,
+        "width": 383.625,
+        "height": 203.04002380371094
+      },
+      "viewport": {
+        "width": 740,
+        "height": 360
+      }
+    },
+    "consoleErrors": [],
+    "pageErrors": []
+  },
+  {
+    "viewport": {
+      "name": "desktop-1280x800",
+      "width": 1280,
+      "height": 800
+    },
+    "overflowBefore": {
+      "scrollWidth": 1280,
+      "clientWidth": 1280,
+      "overflowing": false
+    },
+    "overflowAfter": {
+      "scrollWidth": 1280,
+      "clientWidth": 1280,
+      "overflowing": false
+    },
+    "cover": {
+      "visible": true,
+      "rect": {
+        "top": 0,
+        "bottom": 800,
+        "width": 1280,
+        "height": 800
+      },
+      "content": {
+        "top": 88,
+        "bottom": 720,
+        "width": 1248,
+        "height": 632
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      }
+    },
+    "consoleErrors": [],
+    "pageErrors": []
+  }
+]

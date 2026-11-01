@@ -1,0 +1,8 @@
+/
+  Cache-Control: public, max-age=0, must-revalidate
+  X-Robots-Tag: all
+
+/assets/telegram-preview-20261101.jpg
+  Cache-Control: public, max-age=31536000, immutable
+  Content-Type: image/jpeg
+  X-Robots-Tag: all
