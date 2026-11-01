@@ -26,9 +26,9 @@ export const wedding = {
   },
   venue: {
     kh: "ស្ថិតនៅ ដឹ ព្រេមៀ សេនធ័រ សែនសុខ (អគារ A)",
-    en: "The Premier Center Sen Sok (Building A)",
-    addressKh: "",
-    addressEn: "",
+    en: "[Wedding venue]",
+    addressKh: "ស្ថិតនៅ ដឹ ព្រេមៀ សេនធ័រ សែនសុខ (អគារ A)",
+    addressEn: "The Premier Center Sen Sok (Building A)",
     lat: 11.59990736080041,
     lng: 104.88234836628968,
     mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d821.6248719089897!2d104.88234836628968!3d11.59990736080041!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x310953c50a1f8bd1%3A0xe3018008878b9d12!2zVGhlIFByZW1pZXIgQ2VudGVyIFNlbiBTb2sg5qOu6YCf5pyD5bGV5Lit5b-D!5e0!3m2!1sen!2skh!4v1793375107172!5m2!1sen!2skh",

@@ -18,42 +18,6 @@ CustomEase.create("hand", "M0,0 C0.12,0.01 0.08,0.45 0.32,0.55 0.62,0.68 0.72,0.
 
 const assetUrl = (file) => `${import.meta.env.BASE_URL}assets/${file}`;
 const kitPath = assetUrl("khmer-invite-starter-kit");
-const userAgent = navigator.userAgent || "";
-const referrerHost = (() => {
-  try { return new URL(document.referrer).hostname; } catch { return ""; }
-})();
-const isFacebookInApp = /FBAN|FBAV|FB_IAB|FB4A|FBIOS|Messenger/i.test(userAgent)
-  || /(^|\.)((l|lm)\.)?facebook\.com$/i.test(referrerHost);
-const isTelegramInApp = /Telegram/i.test(userAgent)
-  || /(^|\.)(t\.me|telegram\.me|telegram\.org)$/i.test(referrerHost);
-const isAndroidWebView = /\bwv\b/i.test(userAgent)
-  || (/Android/i.test(userAgent) && /Version\/4\.0/i.test(userAgent) && /Chrome\//i.test(userAgent));
-const isIosWebView = /iPhone|iPad|iPod/i.test(userAgent)
-  && /AppleWebKit/i.test(userAgent)
-  && !/Safari/i.test(userAgent);
-const isInAppBrowser = isFacebookInApp || isTelegramInApp || isAndroidWebView || isIosWebView;
-
-if (isInAppBrowser) {
-  const root = document.documentElement;
-  root.classList.add("in-app-browser");
-  root.dataset.inAppBrowser = isFacebookInApp ? "facebook" : isTelegramInApp ? "telegram" : "webview";
-  let stableViewportWidth = innerWidth;
-  const syncStableViewport = () => {
-    const height = Math.round(window.visualViewport?.height || innerHeight);
-    root.style.setProperty("--stable-viewport-height", `${height}px`);
-    stableViewportWidth = innerWidth;
-  };
-  let viewportTimer;
-  const scheduleStableViewport = () => {
-    clearTimeout(viewportTimer);
-    viewportTimer = setTimeout(syncStableViewport, 180);
-  };
-  syncStableViewport();
-  addEventListener("orientationchange", scheduleStableViewport, { passive: true });
-  addEventListener("resize", () => {
-    if (Math.abs(innerWidth - stableViewportWidth) > 48) scheduleStableViewport();
-  }, { passive: true });
-}
 
 const decorativeCorner = (className = "") => `
   <svg class="corner ${className}" viewBox="0 0 180 180" aria-hidden="true">
@@ -561,13 +525,7 @@ function initCandle() {
 }
 
 function initMotion() {
-  if (reducedMotion || isInAppBrowser) {
-    if (isInAppBrowser) {
-      gsap.set(".gold-thread path", { strokeDashoffset: 0 });
-      gsap.set(".candle-row > i", { scaleY: 1 });
-    }
-    return;
-  }
+  if (reducedMotion) return;
   if (matchMedia("(min-width: 800px)").matches) {
     const lenis = new Lenis({ duration: 1.05, smoothWheel: true });
     const raf = (time) => { lenis.raf(time); requestAnimationFrame(raf); };
@@ -655,30 +613,11 @@ function initMotion() {
   ScrollTrigger.refresh();
 }
 
-function initTopbar() {
-  const topbar = document.querySelector(".topbar");
-  let animationFrame = 0;
-  let isScrolled;
-  const update = () => {
-    animationFrame = 0;
-    const nextState = scrollY > 40;
-    if (nextState === isScrolled) return;
-    isScrolled = nextState;
-    topbar.classList.toggle("is-scrolled", nextState);
-  };
-  const scheduleUpdate = () => {
-    if (!animationFrame) animationFrame = requestAnimationFrame(update);
-  };
-  addEventListener("scroll", scheduleUpdate, { passive: true });
-  addEventListener("pageshow", scheduleUpdate, { passive: true });
-  update();
-}
-
 function initExperience() {
   if (experienceReady) return;
   experienceReady = true;
   document.documentElement.classList.remove("invitation-locked");
-  initTopbar();
+  addEventListener("scroll", () => document.querySelector(".topbar").classList.toggle("is-scrolled", scrollY > 40), { passive: true });
   updateCountdown();
   if (wedding.date.iso) setInterval(updateCountdown, 1000);
   initGallery();
@@ -693,15 +632,7 @@ function showCover(introDelay = 0) {
   envelopeScreen.style.pointerEvents = "none";
   envelopeScreen.setAttribute("aria-hidden", "true");
   cover.removeAttribute("aria-hidden");
-  const topbar = cover.querySelector(".topbar");
-  if (topbar) experience.append(topbar);
   const content = cover.querySelectorAll(".cover-intro, .english-names, .respect, .date-row, .lunar, .venue, .scroll-cue");
-  if (reducedMotion || isInAppBrowser) {
-    envelopeScreen.style.display = "none";
-    gsap.set(content, { clearProps: "transform,opacity" });
-    initExperience();
-    return;
-  }
   gsap.timeline()
     .fromTo(".cover-photo", { scale: 1.055 }, { scale: 1, duration: 1.15, ease: "power2.out" })
     .fromTo(content, { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: .62, stagger: .045, ease: "power3.out" }, .08 + introDelay);
@@ -726,7 +657,7 @@ function openInvitation() {
   const goldParticles = gsap.utils.toArray(".opening-gold-particle");
   const tl = gsap.timeline();
 
-  if (reducedMotion || isInAppBrowser) {
+  if (reducedMotion) {
     tl.set([seal, flap, card, pocket], { opacity: 0 }).to(envelopeScreen, { opacity: 0, duration: .35, onComplete: showCover });
     return;
   }
@@ -753,8 +684,7 @@ function openInvitation() {
     .call(showCover, [.45], 2.48)
     .to(envelopeScreen, { opacity: 0, duration: .78, ease: "power2.inOut" }, 2.48)
     .to(card, { scale: 1.08, opacity: 0, duration: .58, ease: "power2.in" }, 2.55)
-    .set(effects, { opacity: 0 }, 3.3)
-    .set(envelopeScreen, { display: "none" }, 3.31);
+    .set(effects, { opacity: 0 }, 3.3);
 }
 
 openButton.addEventListener("click", openInvitation);
