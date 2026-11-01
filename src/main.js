@@ -28,15 +28,18 @@ const isTelegramInApp = /Telegram/i.test(userAgent)
   || /(^|\.)(t\.me|telegram\.me|telegram\.org)$/i.test(referrerHost);
 const isAndroidWebView = /\bwv\b/i.test(userAgent)
   || (/Android/i.test(userAgent) && /Version\/4\.0/i.test(userAgent) && /Chrome\//i.test(userAgent));
-const isIosWebView = /iPhone|iPad|iPod/i.test(userAgent)
+const isIosDevice = /iPhone|iPad|iPod/i.test(userAgent)
+  || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+const isIosWebView = isIosDevice
   && /AppleWebKit/i.test(userAgent)
   && !/Safari/i.test(userAgent);
-const isInAppBrowser = isFacebookInApp || isTelegramInApp || isAndroidWebView || isIosWebView;
+const isInAppBrowser = isFacebookInApp || isTelegramInApp || isAndroidWebView || isIosWebView || isIosDevice;
 
 if (isInAppBrowser) {
   const root = document.documentElement;
   root.classList.add("in-app-browser");
-  root.dataset.inAppBrowser = isFacebookInApp ? "facebook" : isTelegramInApp ? "telegram" : "webview";
+  if (isIosDevice) root.classList.add("ios-browser");
+  root.dataset.inAppBrowser = isFacebookInApp ? "facebook" : isTelegramInApp ? "telegram" : isIosDevice ? "ios" : "webview";
   let stableViewportWidth = innerWidth;
   const syncStableViewport = () => {
     const height = Math.round(window.visualViewport?.height || innerHeight);
@@ -657,6 +660,10 @@ function initMotion() {
 
 function initTopbar() {
   const topbar = document.querySelector(".topbar");
+  if (isIosDevice) {
+    topbar.classList.remove("is-scrolled");
+    return;
+  }
   let animationFrame = 0;
   let isScrolled;
   const update = () => {
@@ -694,7 +701,7 @@ function showCover(introDelay = 0) {
   envelopeScreen.setAttribute("aria-hidden", "true");
   cover.removeAttribute("aria-hidden");
   const topbar = cover.querySelector(".topbar");
-  if (topbar) experience.append(topbar);
+  if (topbar && !isIosDevice) experience.append(topbar);
   const content = cover.querySelectorAll(".cover-intro, .english-names, .respect, .date-row, .lunar, .venue, .scroll-cue");
   if (reducedMotion || isInAppBrowser) {
     envelopeScreen.style.display = "none";

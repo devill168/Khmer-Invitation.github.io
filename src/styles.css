@@ -548,8 +548,32 @@ html.in-app-browser .topbar.is-scrolled {
   -webkit-backdrop-filter: none;
 }
 
+html.ios-browser .topbar,
+html.ios-browser .topbar.is-scrolled {
+  position: absolute;
+  height: 64px !important;
+  padding: 6px 14px;
+  background: linear-gradient(rgba(8,9,6,.88), rgba(8,9,6,.34), transparent);
+  contain: paint;
+  will-change: auto;
+}
+
+html.ios-browser .name-logo--mini {
+  width: 116px;
+  height: 48px;
+}
+
+html.ios-browser .round-button {
+  width: 34px;
+  height: 34px;
+}
+
 html.in-app-browser .cover-content {
   top: calc(76px + env(safe-area-inset-top));
+}
+
+html.ios-browser .cover-content {
+  top: 72px;
 }
 
 html.in-app-browser .round-button,
@@ -653,5 +677,14 @@ html.in-app-browser .programme-section::before {
 
   html.in-app-browser .cover-content {
     top: calc(58px + env(safe-area-inset-top));
+  }
+
+  html.ios-browser .topbar,
+  html.ios-browser .topbar.is-scrolled {
+    height: 54px !important;
+  }
+
+  html.ios-browser .cover-content {
+    top: 58px;
   }
 }
