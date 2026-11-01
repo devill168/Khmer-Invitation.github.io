@@ -1,3 +1,5 @@
+const assetUrl = (file) => `${import.meta.env.BASE_URL}assets/${file}`;
+
 export const wedding = {
   couple: {
     groom: { kh: "[ជា លីហេង]", shortKh: "[លីហេង]", en: "[CHEA LYHENG]" },
@@ -44,12 +46,12 @@ export const wedding = {
     { number: "០៤", titleKh: "[ជំពូកទី៤]", titleEn: "[Chapter four]", captionKh: "[បញ្ចូលអនុស្សាវរីយ៍របស់អ្នក]", captionEn: "[Add your memory]", position: "50% 82%" },
   ],
   gallery: [
-    { src: "/assets/section8-1-1800.webp", position: "50% 45%" },
-    { src: "/assets/section8-2-1800.webp", position: "50% 38%" },
-    { src: "/assets/section8-3-1800.webp", position: "50% 50%" },
-    { src: "/assets/section8-4-1800.webp", position: "50% 50%" },
-    { src: "/assets/section8-5-1800.webp", position: "50% 50%" },
-    { src: "/assets/section8-6-1800.webp", position: "50% 58%" },
+    { src: assetUrl("section8-1-1800.webp"), position: "50% 45%" },
+    { src: assetUrl("section8-2-1800.webp"), position: "50% 38%" },
+    { src: assetUrl("section8-3-1800.webp"), position: "50% 50%" },
+    { src: assetUrl("section8-4-1800.webp"), position: "50% 50%" },
+    { src: assetUrl("section8-5-1800.webp"), position: "50% 50%" },
+    { src: assetUrl("section8-6-1800.webp"), position: "50% 58%" },
   ].map((image, index) => ({
     ...image,
     altKh: `រូបថតមុនថ្ងៃមង្គល ${index + 1}`,
@@ -57,17 +59,17 @@ export const wedding = {
   })),
   gifts: { khqr: null, aba: null },
   assets: {
-    hero: "/assets/pre-wedding-2000.webp",
-    section2: "/assets/picture-on-section2.jpg",
-    section3: "/assets/picture-on-section3.jpg",
-    section3Background: "/assets/section3-background-2200.webp",
-    section10Background: "/assets/section10-background-2200.webp",
+    hero: assetUrl("pre-wedding-2000.webp"),
+    section2: assetUrl("picture-on-section2.jpg"),
+    section3: assetUrl("picture-on-section3.jpg"),
+    section3Background: assetUrl("section3-background-2200.webp"),
+    section10Background: assetUrl("section10-background-2200.webp"),
     story: [
-      { src: "/assets/story-1-1600.webp", position: "50% center" },
-      { src: "/assets/story-2-1600.webp", position: "72% center" },
-      { src: "/assets/story-3-1600.webp", position: "58% center" },
-      { src: "/assets/story-4-1600.webp", position: "42% center" },
+      { src: assetUrl("story-1-1600.webp"), position: "50% center" },
+      { src: assetUrl("story-2-1600.webp"), position: "72% center" },
+      { src: assetUrl("story-3-1600.webp"), position: "58% center" },
+      { src: assetUrl("story-4-1600.webp"), position: "42% center" },
     ],
-    music: "/assets/wedding-song.mp3",
+    music: assetUrl("wedding-song.mp3"),
   },
 };

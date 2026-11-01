@@ -16,7 +16,8 @@ import "./styles.css";
 gsap.registerPlugin(CustomEase, ScrollTrigger);
 CustomEase.create("hand", "M0,0 C0.12,0.01 0.08,0.45 0.32,0.55 0.62,0.68 0.72,0.98 1,1");
 
-const kitPath = "/assets/khmer-invite-starter-kit";
+const assetUrl = (file) => `${import.meta.env.BASE_URL}assets/${file}`;
+const kitPath = assetUrl("khmer-invite-starter-kit");
 
 const decorativeCorner = (className = "") => `
   <svg class="corner ${className}" viewBox="0 0 180 180" aria-hidden="true">
@@ -170,7 +171,7 @@ document.querySelector("#app").innerHTML = `
         <div class="topbar-actions">
           <button class="round-button" id="lang-toggle" type="button" aria-label="Switch language">EN</button>
           <button class="round-button music-toggle" id="music-toggle" type="button" aria-label="Play music" aria-pressed="false">
-            <img class="music-icon" src="/assets/audio_mute.svg" alt="" aria-hidden="true" />
+            <img class="music-icon" src="${assetUrl("audio_mute.svg")}" alt="" aria-hidden="true" />
           </button>
         </div>
       </nav>
@@ -365,10 +366,10 @@ document.querySelector("#app").innerHTML = `
         <h2 class="section-title lang-km" id="thanks-title">${copy.km.thanks}</h2><h2 class="section-title lang-en">${copy.en.thanks}</h2>
         <p class="lang-km">${copy.km.thanksBody}</p><p class="lang-en">${copy.en.thanksBody}</p>
         <div class="share-grid">
-          <button data-share="telegram" type="button"><b aria-hidden="true"><img src="/assets/icon_telegram.png" alt="" /></b><span class="lang-km">${copy.km.shareTelegram}</span><span class="lang-en">${copy.en.shareTelegram}</span></button>
-          <button data-share="messenger" type="button"><b aria-hidden="true"><img src="/assets/icon_messager.png" alt="" /></b><span class="lang-km">${copy.km.shareMessenger}</span><span class="lang-en">${copy.en.shareMessenger}</span></button>
-          <button data-share="facebook" type="button"><b aria-hidden="true"><img src="/assets/icon_facebook.png" alt="" /></b><span class="lang-km">${copy.km.shareFacebook}</span><span class="lang-en">${copy.en.shareFacebook}</span></button>
-          <button data-share="copy" type="button"><b aria-hidden="true"><img src="/assets/icon_link.png" alt="" /></b><span class="lang-km">${copy.km.copyLink}</span><span class="lang-en">${copy.en.copyLink}</span></button>
+          <button data-share="telegram" type="button"><b aria-hidden="true"><img src="${assetUrl("icon_telegram.png")}" alt="" /></b><span class="lang-km">${copy.km.shareTelegram}</span><span class="lang-en">${copy.en.shareTelegram}</span></button>
+          <button data-share="messenger" type="button"><b aria-hidden="true"><img src="${assetUrl("icon_messager.png")}" alt="" /></b><span class="lang-km">${copy.km.shareMessenger}</span><span class="lang-en">${copy.en.shareMessenger}</span></button>
+          <button data-share="facebook" type="button"><b aria-hidden="true"><img src="${assetUrl("icon_facebook.png")}" alt="" /></b><span class="lang-km">${copy.km.shareFacebook}</span><span class="lang-en">${copy.en.shareFacebook}</span></button>
+          <button data-share="copy" type="button"><b aria-hidden="true"><img src="${assetUrl("icon_link.png")}" alt="" /></b><span class="lang-km">${copy.km.copyLink}</span><span class="lang-en">${copy.en.copyLink}</span></button>
         </div>
         ${nameLogo("name-logo--finale")}
       </div>
@@ -408,7 +409,7 @@ function setMusicState(isPlaying) {
   musicToggle.setAttribute("aria-pressed", String(isPlaying));
   musicToggle.setAttribute("aria-label", isPlaying ? "Mute music" : "Play music");
   musicToggle.classList.toggle("is-on", isPlaying);
-  musicIcon.src = isPlaying ? "/assets/audio_play.svg" : "/assets/audio_mute.svg";
+  musicIcon.src = isPlaying ? assetUrl("audio_play.svg") : assetUrl("audio_mute.svg");
 }
 
 function startInvitationMusic() {
