@@ -7,7 +7,7 @@ export const wedding = {
   },
   parents: {
     groom: { father: "ជា សែម", mother: "ហ៊ឹម សុធីតា" },
-    bride: { father: "ម៉ាត់ អ៊ីមរ៉ន", mother: "លី ម៉ារីយ៉ា" },
+    bride: { father: "ម៉ាត់ អុីមរ៉ន", mother: "លី ម៉ារីយ៉ា" },
   },
   date: {
     iso: "2027-01-11T17:30:00+07:00",
@@ -21,8 +21,8 @@ export const wedding = {
     yearEn: "2027",
     lunarKh: "ថ្ងៃចន្ទ ៤កើត ខែបុស្ស ឆ្នាំមមី អដ្ឋស័ក ព.ស.២៥៧០",
     lunarEn: "Lunar date",
-    timeKh: "៥:៣០ ល្ងាច",
-    timeEn: "5:30 PM",
+    timeKh: "៥:00 ល្ងាច",
+    timeEn: "5:00 PM",
   },
   venue: {
     kh: "ស្ថិតនៅ ដឹ ព្រេមៀ សេនធ័រ សែនសុខ (អគារ A)",

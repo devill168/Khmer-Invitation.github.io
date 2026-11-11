@@ -13,6 +13,22 @@ import { wedding } from "./data/wedding";
 import { copy } from "./data/i18n";
 import "./styles.css";
 
+if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+
+const resetPagePosition = () => window.scrollTo(0, 0);
+
+resetPagePosition();
+addEventListener("beforeunload", resetPagePosition);
+addEventListener("pagehide", resetPagePosition);
+addEventListener("pageshow", (event) => {
+  if (event.persisted) {
+    location.reload();
+    return;
+  }
+  resetPagePosition();
+  requestAnimationFrame(resetPagePosition);
+});
+
 gsap.registerPlugin(CustomEase, ScrollTrigger);
 CustomEase.create("hand", "M0,0 C0.12,0.01 0.08,0.45 0.32,0.55 0.62,0.68 0.72,0.98 1,1");
 
@@ -92,7 +108,7 @@ const galleryCards = () => wedding.gallery.map((item, index) => `
 
 const parentLines = (side) => `
   <p>លោក ${wedding.parents[side].father}</p>
-  <p>និងលោកស្រី ${wedding.parents[side].mother}</p>`;
+  <p>អ្នកស្រី ${wedding.parents[side].mother}</p>`;
 
 document.querySelector("#app").innerHTML = `
   <main class="experience" data-lang="km">
@@ -103,14 +119,12 @@ document.querySelector("#app").innerHTML = `
         ${Array.from({ length: 8 }, (_, index) => `<i class="opening-sparkle" style="--x:${30 + ((index * 17) % 42)}%;--y:${37 + ((index * 13) % 24)}%"></i>`).join("")}
         ${Array.from({ length: 10 }, (_, index) => `<i class="opening-gold-particle" style="--x:${32 + ((index * 19) % 38)}%;--y:${43 + ((index * 11) % 18)}%"></i>`).join("")}
       </div>
-      <header class="envelope-heading">
-        <p class="eyebrow lang-km" id="envelope-title">${copy.km.invitation}</p>
-        <p class="eyebrow lang-en" id="envelope-title-en">${copy.en.invitation}</p>
-        <p class="english-title">The Wedding Invitation</p>
-      </header>
-
       <div class="envelope-stage-wrap">
         <div class="envelope-stage" id="envelope-stage">
+          <header class="envelope-heading" id="envelope-title">
+            <p class="eyebrow">សិរីសួស្តីអាពាហ៍ពិពាហ៍</p>
+            <p class="english-title">The Wedding Invitation</p>
+          </header>
           <div class="envelope-back paper-dark"></div>
           <div class="inner-card paper-cream">
             <div class="card-border"></div>
@@ -190,15 +204,15 @@ document.querySelector("#app").innerHTML = `
         <div class="date-row reveal-line" data-date-row>${dateCells("km")}</div>
         <p class="lunar reveal-line">${wedding.date.lunarKh}</p>
         <p class="venue reveal-line">${wedding.venue.kh}</p>
-        <div class="scroll-cue" aria-hidden="true">
-          <span class="lang-km">${copy.km.scroll}</span><span class="lang-en">${copy.en.scroll}</span>
-          <span class="scroll-hand">
-            <svg viewBox="0 0 24 24" focusable="false">
-              <path d="M9 11.24V7.5C9 6.12 10.12 5 11.5 5S14 6.12 14 7.5v3.74c1.21-.81 2-2.18 2-3.74C16 5.01 13.99 3 11.5 3S7 5.01 7 7.5c0 1.56.79 2.93 2 3.74Zm9.84 4.63-4.54-2.26a1.4 1.4 0 0 0-.54-.11H13v-6C13 6.67 12.33 6 11.5 6S10 6.67 10 7.5v10.74l-3.43-.72a1.1 1.1 0 0 0-.24-.03c-.31 0-.59.13-.79.33l-.79.8 4.94 4.94c.27.27.65.44 1.06.44h6.79c.75 0 1.33-.55 1.44-1.28l.75-5.27c.01-.07.02-.14.02-.2 0-.62-.38-1.16-.91-1.38Z"/>
-            </svg>
-          </span>
-          <i></i>
-        </div>
+      </div>
+      <div class="scroll-cue" aria-hidden="true">
+        <span class="lang-km">${copy.km.scroll}</span><span class="lang-en">${copy.en.scroll}</span>
+        <span class="scroll-hand">
+          <svg viewBox="0 0 24 24" focusable="false">
+            <path d="M9 11.24V7.5C9 6.12 10.12 5 11.5 5S14 6.12 14 7.5v3.74c1.21-.81 2-2.18 2-3.74C16 5.01 13.99 3 11.5 3S7 5.01 7 7.5c0 1.56.79 2.93 2 3.74Zm9.84 4.63-4.54-2.26a1.4 1.4 0 0 0-.54-.11H13v-6C13 6.67 12.33 6 11.5 6S10 6.67 10 7.5v10.74l-3.43-.72a1.1 1.1 0 0 0-.24-.03c-.31 0-.59.13-.79.33l-.79.8 4.94 4.94c.27.27.65.44 1.06.44h6.79c.75 0 1.33-.55 1.44-1.28l.75-5.27c.01-.07.02-.14.02-.2 0-.62-.38-1.16-.91-1.38Z"/>
+          </svg>
+        </span>
+        <i></i>
       </div>
     </section>
 
@@ -207,29 +221,33 @@ document.querySelector("#app").innerHTML = `
       ${decorativeCorner("section-corner section-corner--br")}
       <div class="section-shell formal-grid">
         <div class="arched-photo reveal-photo"><img src="${wedding.assets.section2}" alt="Pre-wedding portrait" loading="lazy" /></div>
-        <div class="parents-grid">
-          <div class="parent-block reveal-copy">
-            <p class="section-label lang-km">${copy.km.parentsGroom}</p><p class="section-label lang-en">${copy.en.parentsGroom}</p>
-            <div class="khmer-lines">${parentLines("groom")}</div>
+        <article class="formal-card reveal-copy">
+          <div class="parents-grid">
+            <div class="parent-block">
+              <p class="section-label lang-km">${copy.km.parentsGroom}</p><p class="section-label lang-en">${copy.en.parentsGroom}</p>
+              <div class="khmer-lines">${parentLines("groom")}</div>
+            </div>
+            <div class="parent-divider">${divider("divider-art")}</div>
+            <div class="parent-block">
+              <p class="section-label lang-km">${copy.km.parentsBride}</p><p class="section-label lang-en">${copy.en.parentsBride}</p>
+              <div class="khmer-lines">${parentLines("bride")}</div>
+            </div>
           </div>
-          <div class="parent-divider">${divider("divider-art")}</div>
-          <div class="parent-block reveal-copy">
-            <p class="section-label lang-km">${copy.km.parentsBride}</p><p class="section-label lang-en">${copy.en.parentsBride}</p>
-            <div class="khmer-lines">${parentLines("bride")}</div>
+          <div class="formal-copy">
+            ${crest("section-crest")}
+            <h2 class="section-title lang-km" id="formal-title">${copy.km.formalTitle}</h2>
+            <h2 class="section-title lang-en">${copy.en.formalTitle}</h2>
+            <p class="formal-body lang-km">${copy.km.formalBody}</p>
+            <p class="formal-body lang-en">${copy.en.formalBody}</p>
+            <div class="formal-names">
+              <div><span class="lang-km">${copy.km.groomLabel}</span><span class="lang-en">${copy.en.groomLabel}</span><strong>${wedding.couple.groom.kh}</strong></div>
+              <i>&amp;</i>
+              <div><span class="lang-km">${copy.km.brideLabel}</span><span class="lang-en">${copy.en.brideLabel}</span><strong>${wedding.couple.bride.kh}</strong></div>
+            </div>
+            <p class="formal-details lang-km">ពិសាភោជនាហារប្រព្រឹត្តនៅ ${wedding.date.lunarKh} ត្រូវនឹងថ្ងៃទី${wedding.date.dayKh} ខែ${wedding.date.monthKh} ឆ្នាំ${wedding.date.yearKh} វេលាម៉ោង ${wedding.date.timeKh} ${wedding.venue.addressKh} ដោយមេត្រីភាព។<br/> យើងខ្ញុំសូមអរគុណ!</p>
+            <p class="formal-details lang-en">The reception will be held on ${wedding.date.weekdayEn}, ${wedding.date.dayEn} ${wedding.date.monthEn} ${wedding.date.yearEn} at ${wedding.date.timeEn}, at ${wedding.venue.addressEn}. Thank you!</p>
           </div>
-        </div>
-        <div class="formal-copy reveal-copy">
-          ${crest("section-crest")}
-          <h2 class="section-title lang-km" id="formal-title">${copy.km.formalTitle}</h2>
-          <h2 class="section-title lang-en">${copy.en.formalTitle}</h2>
-          <p class="formal-body lang-km">${copy.km.formalBody}</p>
-          <p class="formal-body lang-en">${copy.en.formalBody}</p>
-          <div class="formal-names">
-            <div><span class="lang-km">${copy.km.groomLabel}</span><span class="lang-en">${copy.en.groomLabel}</span><strong>${wedding.couple.groom.kh}</strong></div>
-            <i>&amp;</i>
-            <div><span class="lang-km">${copy.km.brideLabel}</span><span class="lang-en">${copy.en.brideLabel}</span><strong>${wedding.couple.bride.kh}</strong></div>
-          </div>
-        </div>
+        </article>
       </div>
     </section>
 
@@ -244,17 +262,35 @@ document.querySelector("#app").innerHTML = `
         <div class="scalloped-photo reveal-photo section3-photo"><img src="${wedding.assets.section3}" alt="The couple" loading="lazy" /></div>
         <div class="couple-cards">
           <article class="person-card reveal-copy">
-            <span class="lang-km">កូនកំលោះ</span><span class="lang-en">Groom</span>
-            <h3>${wedding.couple.groom.kh}</h3><em>${wedding.couple.groom.en}</em>
-            <p class="lang-km">${copy.km.sonOf}<br>លោក ${wedding.parents.groom.father}<br>${copy.km.and}លោកស្រី ${wedding.parents.groom.mother}</p>
-            <p class="lang-en">${copy.en.sonOf}<br>${wedding.parents.groom.father}<br>${copy.en.and} ${wedding.parents.groom.mother}</p>
+            <span class="person-role lang-km">កូនកំលោះ</span><span class="person-role lang-en">Groom</span>
+            <h3 class="person-name">${wedding.couple.groom.kh}</h3>
+            <em class="person-name-en">${wedding.couple.groom.en}</em>
+            <div class="parentage lang-km">
+              <span class="relationship">${copy.km.sonOf}</span>
+              <p><small>លោក</small><strong>${wedding.parents.groom.father}</strong></p>
+              <p><small>${copy.km.and}លោកស្រី</small><strong>${wedding.parents.groom.mother}</strong></p>
+            </div>
+            <div class="parentage lang-en">
+              <span class="relationship">${copy.en.sonOf}</span>
+              <p><strong>${wedding.parents.groom.father}</strong></p>
+              <p><small>${copy.en.and}</small><strong>${wedding.parents.groom.mother}</strong></p>
+            </div>
           </article>
-          <div class="couple-amp">&amp;</div>
+          <div class="couple-amp" aria-hidden="true"><span>&amp;</span></div>
           <article class="person-card reveal-copy">
-            <span class="lang-km">កូនក្រមុំ</span><span class="lang-en">Bride</span>
-            <h3>${wedding.couple.bride.kh}</h3><em>${wedding.couple.bride.en}</em>
-            <p class="lang-km">${copy.km.daughterOf}<br>លោក ${wedding.parents.bride.father}<br>${copy.km.and}លោកស្រី ${wedding.parents.bride.mother}</p>
-            <p class="lang-en">${copy.en.daughterOf}<br>${wedding.parents.bride.father}<br>${copy.en.and} ${wedding.parents.bride.mother}</p>
+            <span class="person-role lang-km">កូនក្រមុំ</span><span class="person-role lang-en">Bride</span>
+            <h3 class="person-name">${wedding.couple.bride.kh}</h3>
+            <em class="person-name-en">${wedding.couple.bride.en}</em>
+            <div class="parentage lang-km">
+              <span class="relationship">${copy.km.daughterOf}</span>
+              <p><small>លោក</small><strong>${wedding.parents.bride.father}</strong></p>
+              <p><small>${copy.km.and}លោកស្រី</small><strong>${wedding.parents.bride.mother}</strong></p>
+            </div>
+            <div class="parentage lang-en">
+              <span class="relationship">${copy.en.daughterOf}</span>
+              <p><strong>${wedding.parents.bride.father}</strong></p>
+              <p><small>${copy.en.and}</small><strong>${wedding.parents.bride.mother}</strong></p>
+            </div>
           </article>
         </div>
       </div>
@@ -401,6 +437,7 @@ document.querySelector("#app").innerHTML = `
 const experience = document.querySelector(".experience");
 const openButton = document.querySelector("#open-invitation");
 const envelopeStage = document.querySelector("#envelope-stage");
+const envelopeHeading = document.querySelector(".envelope-heading");
 const envelopeScreen = document.querySelector(".envelope-screen");
 const cover = document.querySelector("#cover");
 const flap = document.querySelector("#flap");
@@ -548,10 +585,17 @@ function initMotion() {
   const coverScrollCue = cover.querySelector(".scroll-cue");
   const coverTopbar = cover.querySelector(".topbar");
   if (coverMedia && coverRevealContent.length && coverScrollCue && coverTopbar) {
+    const coverScrollHand = coverScrollCue.querySelector(".scroll-hand");
     let scrollCueVisible = true;
+    let scrollCueTimer;
     const setScrollCueVisible = (visible) => {
       if (visible === scrollCueVisible) return;
       scrollCueVisible = visible;
+      if (visible && coverScrollHand) {
+        coverScrollHand.style.animation = "none";
+        void coverScrollHand.offsetHeight;
+        coverScrollHand.style.animation = "";
+      }
       gsap.to(coverScrollCue, {
         autoAlpha: visible ? 1 : 0,
         y: visible ? 0 : -18,
@@ -559,6 +603,19 @@ function initMotion() {
         overwrite: "auto",
         ease: "power2.out",
       });
+    };
+    const clearScrollCueTimer = () => {
+      if (!scrollCueTimer) return;
+      clearTimeout(scrollCueTimer);
+      scrollCueTimer = undefined;
+    };
+    const showScrollCueAfterPause = (progress) => {
+      clearScrollCueTimer();
+      if (progress <= .01 || progress >= .8) return;
+      scrollCueTimer = setTimeout(() => {
+        setScrollCueVisible(true);
+        scrollCueTimer = undefined;
+      }, 2000);
     };
     gsap.set(coverMedia, { clipPath: "inset(0% 0% 0% 0% round 0px)" });
     gsap.timeline({
@@ -570,15 +627,31 @@ function initMotion() {
         pin: true,
         anticipatePin: 1,
         invalidateOnRefresh: true,
-        onUpdate: (self) => setScrollCueVisible(self.progress <= .01 || self.direction < 0),
-        onEnterBack: () => setScrollCueVisible(true),
-        onLeave: () => setScrollCueVisible(false),
-        onLeaveBack: () => setScrollCueVisible(true),
+        onUpdate: (self) => {
+          if (self.progress <= .01) {
+            clearScrollCueTimer();
+            setScrollCueVisible(true);
+            return;
+          }
+          setScrollCueVisible(false);
+          showScrollCueAfterPause(self.progress);
+        },
+        onEnterBack: (self) => showScrollCueAfterPause(self.progress),
+        onLeave: () => {
+          clearScrollCueTimer();
+          setScrollCueVisible(false);
+        },
+        onLeaveBack: () => {
+          clearScrollCueTimer();
+          setScrollCueVisible(true);
+        },
       },
     })
       .to(coverMedia, { clipPath: "inset(5% 4% 5% 4% round 24px)", duration: 1, ease: "none" }, 0)
       .to(coverRevealContent, { autoAlpha: 1, y: 0, scale: 1, duration: .68, stagger: .035, ease: "power2.out" }, .16)
-      .to(coverTopbar, { autoAlpha: 1, y: 0, duration: .28, ease: "power2.out" }, .56);
+      .to(coverTopbar, { autoAlpha: 1, y: 0, duration: .28, ease: "power2.out" }, .56)
+      .to(coverRevealContent, { autoAlpha: 0, duration: .3, stagger: .012, ease: "none" }, 1.1)
+      .to(coverMedia, { clipPath: "inset(0% 0% 0% 0% round 0px)", duration: .3, ease: "none" }, 1.1);
   }
   gsap.utils.toArray(".reveal-copy").forEach((element) => gsap.from(element, { y: 34, opacity: 0, duration: 1, ease: "power3.out", scrollTrigger: { trigger: element, start: "top 86%", once: true } }));
   gsap.utils.toArray(".reveal-photo:not(.section3-photo)").forEach((element) => gsap.from(element, { clipPath: "inset(8% 12% 92% 12% round 42% 42% 0 0)", duration: 1.25, ease: "power3.inOut", scrollTrigger: { trigger: element, start: "top 82%", once: true, onComplete: () => gsap.set(element, { clearProps: "clipPath" }) } }));
@@ -714,11 +787,11 @@ function openInvitation() {
   const tl = gsap.timeline();
 
   if (reducedMotion) {
-    tl.set([seal, flap, card, pocket], { opacity: 0 }).to(envelopeScreen, { opacity: 0, duration: .35, onComplete: showCover });
+    tl.set([envelopeHeading, seal, flap, card, pocket], { opacity: 0 }).to(envelopeScreen, { opacity: 0, duration: .35, onComplete: showCover });
     return;
   }
 
-  gsap.killTweensOf([envelopeStage, seal, flap, card, pocket]);
+  gsap.killTweensOf([envelopeStage, envelopeHeading, seal, flap, card, pocket]);
   gsap.set(envelopeStage, { rotateX: 0, rotateY: 0 });
 
   tl.set(effects, { opacity: 1 }, 0)
@@ -731,6 +804,7 @@ function openInvitation() {
     .to(goldParticles, { opacity: .72, scale: 1, duration: .16, stagger: .025, ease: "power1.out" }, .22)
     .to(goldParticles, { x: (index) => (index % 2 ? -1 : 1) * (18 + (index % 4) * 13), y: (index) => -34 - (index % 5) * 12, opacity: 0, duration: .68, stagger: .025, ease: "power2.out" }, .32)
     .to(seal, { y: 14, scale: .68, opacity: 0, filter: "drop-shadow(0 4px 5px rgba(0,0,0,.25)) blur(1.5px)", duration: .34, ease: "power2.in" }, .34)
+    .to(envelopeHeading, { opacity: 0, duration: .4, ease: "power2.out" }, .4)
     .to(envelopeStage, { scale: 1, y: 0, filter: "drop-shadow(0 22px 28px rgba(0,0,0,.26))", duration: .58, ease: "power2.out" }, .3)
     .to(flap, { rotateX: -180, duration: 1.02, ease: "power3.inOut", onUpdate() { if (Math.abs(gsap.getProperty(flap, "rotateX")) > 90) flap.classList.add("is-behind"); } }, .48)
     .fromTo(card, { y: "3%", scale: .955, opacity: .72 }, { y: "-58%", scale: 1.025, opacity: 1, duration: 1.08, ease: "power3.out" }, 1.14)
