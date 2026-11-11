@@ -140,22 +140,28 @@ document.querySelector("#app").innerHTML = `
 
           <button class="wax-seal" id="open-invitation" type="button" aria-label="${copy.km.open}">
             <img src="${kitPath}/elements/wax-seal.svg" alt="" aria-hidden="true" />
+            <span class="seal-hand" aria-hidden="true">
+              <svg viewBox="0 0 24 24" focusable="false">
+                <path d="M9 11.24V7.5C9 6.12 10.12 5 11.5 5S14 6.12 14 7.5v3.74c1.21-.81 2-2.18 2-3.74C16 5.01 13.99 3 11.5 3S7 5.01 7 7.5c0 1.56.79 2.93 2 3.74Zm9.84 4.63-4.54-2.26a1.4 1.4 0 0 0-.54-.11H13v-6C13 6.67 12.33 6 11.5 6S10 6.67 10 7.5v10.74l-3.43-.72a1.1 1.1 0 0 0-.24-.03c-.31 0-.59.13-.79.33l-.79.8 4.94 4.94c.27.27.65.44 1.06.44h6.79c.75 0 1.33-.55 1.44-1.28l.75-5.27c.01-.07.02-.14.02-.2 0-.62-.38-1.16-.91-1.38Z"/>
+              </svg>
+            </span>
           </button>
-        </div>
-      </div>
 
-      <div class="open-prompt" aria-hidden="true">
-        <span class="prompt-line"></span>
-        <span class="prompt-copy lang-km">${copy.km.open}</span>
-        <span class="prompt-copy lang-en">${copy.en.open}</span>
+          <div class="open-prompt" aria-hidden="true">
+            <span class="prompt-copy lang-km">${copy.km.open}</span>
+            <span class="prompt-copy lang-en">${copy.en.open}</span>
+          </div>
+        </div>
       </div>
       <p class="opening-status" aria-live="polite"></p>
     </section>
 
     <section class="cover" id="cover" aria-labelledby="cover-title">
-      <div class="cover-photo" aria-hidden="true"></div>
-      <div class="cover-vignette" aria-hidden="true"></div>
-      <div class="cover-grain" aria-hidden="true"></div>
+      <div class="cover-media" id="cover-media" aria-hidden="true">
+        <div class="cover-photo"></div>
+        <div class="cover-vignette"></div>
+        <div class="cover-grain"></div>
+      </div>
       ${decorativeCorner("cover-corner cover-corner--tl")}
       ${decorativeCorner("cover-corner cover-corner--br")}
 
@@ -184,11 +190,15 @@ document.querySelector("#app").innerHTML = `
         <div class="date-row reveal-line" data-date-row>${dateCells("km")}</div>
         <p class="lunar reveal-line">${wedding.date.lunarKh}</p>
         <p class="venue reveal-line">${wedding.venue.kh}</p>
-      </div>
-
-      <div class="scroll-cue" aria-hidden="true">
-        <span class="lang-km">${copy.km.scroll}</span><span class="lang-en">${copy.en.scroll}</span>
-        <i></i>
+        <div class="scroll-cue" aria-hidden="true">
+          <span class="lang-km">${copy.km.scroll}</span><span class="lang-en">${copy.en.scroll}</span>
+          <span class="scroll-hand">
+            <svg viewBox="0 0 24 24" focusable="false">
+              <path d="M9 11.24V7.5C9 6.12 10.12 5 11.5 5S14 6.12 14 7.5v3.74c1.21-.81 2-2.18 2-3.74C16 5.01 13.99 3 11.5 3S7 5.01 7 7.5c0 1.56.79 2.93 2 3.74Zm9.84 4.63-4.54-2.26a1.4 1.4 0 0 0-.54-.11H13v-6C13 6.67 12.33 6 11.5 6S10 6.67 10 7.5v10.74l-3.43-.72a1.1 1.1 0 0 0-.24-.03c-.31 0-.59.13-.79.33l-.79.8 4.94 4.94c.27.27.65.44 1.06.44h6.79c.75 0 1.33-.55 1.44-1.28l.75-5.27c.01-.07.02-.14.02-.2 0-.62-.38-1.16-.91-1.38Z"/>
+            </svg>
+          </span>
+          <i></i>
+        </div>
       </div>
     </section>
 
@@ -398,6 +408,7 @@ const musicToggle = document.querySelector("#music-toggle");
 const musicIcon = musicToggle.querySelector(".music-icon");
 const invitationMusic = document.querySelector("#invitation-music");
 const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const coverRevealSelector = ".cover-intro, .name-logo--hero, .english-names, .respect, .date-row, .lunar, .venue";
 let opened = false;
 let currentLang = "km";
 
@@ -526,10 +537,48 @@ function initCandle() {
 
 function initMotion() {
   if (reducedMotion) return;
-  if (matchMedia("(min-width: 800px)").matches) {
-    const lenis = new Lenis({ duration: 1.05, smoothWheel: true });
-    const raf = (time) => { lenis.raf(time); requestAnimationFrame(raf); };
-    requestAnimationFrame(raf);
+  if (matchMedia("(min-width: 800px) and (pointer: fine)").matches) {
+    const lenis = new Lenis({ lerp: .085, wheelMultiplier: .9 });
+    lenis.on("scroll", ScrollTrigger.update);
+    gsap.ticker.add((time) => lenis.raf(time * 1000));
+    gsap.ticker.lagSmoothing(0);
+  }
+  const coverMedia = document.querySelector("#cover-media");
+  const coverRevealContent = cover.querySelectorAll(coverRevealSelector);
+  const coverScrollCue = cover.querySelector(".scroll-cue");
+  const coverTopbar = cover.querySelector(".topbar");
+  if (coverMedia && coverRevealContent.length && coverScrollCue && coverTopbar) {
+    let scrollCueVisible = true;
+    const setScrollCueVisible = (visible) => {
+      if (visible === scrollCueVisible) return;
+      scrollCueVisible = visible;
+      gsap.to(coverScrollCue, {
+        autoAlpha: visible ? 1 : 0,
+        y: visible ? 0 : -18,
+        duration: .28,
+        overwrite: "auto",
+        ease: "power2.out",
+      });
+    };
+    gsap.set(coverMedia, { clipPath: "inset(0% 0% 0% 0% round 0px)" });
+    gsap.timeline({
+      scrollTrigger: {
+        trigger: cover,
+        start: "top top",
+        end: "+=110%",
+        scrub: 1,
+        pin: true,
+        anticipatePin: 1,
+        invalidateOnRefresh: true,
+        onUpdate: (self) => setScrollCueVisible(self.progress <= .01 || self.direction < 0),
+        onEnterBack: () => setScrollCueVisible(true),
+        onLeave: () => setScrollCueVisible(false),
+        onLeaveBack: () => setScrollCueVisible(true),
+      },
+    })
+      .to(coverMedia, { clipPath: "inset(5% 4% 5% 4% round 24px)", duration: 1, ease: "none" }, 0)
+      .to(coverRevealContent, { autoAlpha: 1, y: 0, scale: 1, duration: .68, stagger: .035, ease: "power2.out" }, .16)
+      .to(coverTopbar, { autoAlpha: 1, y: 0, duration: .28, ease: "power2.out" }, .56);
   }
   gsap.utils.toArray(".reveal-copy").forEach((element) => gsap.from(element, { y: 34, opacity: 0, duration: 1, ease: "power3.out", scrollTrigger: { trigger: element, start: "top 86%", once: true } }));
   gsap.utils.toArray(".reveal-photo:not(.section3-photo)").forEach((element) => gsap.from(element, { clipPath: "inset(8% 12% 92% 12% round 42% 42% 0 0)", duration: 1.25, ease: "power3.inOut", scrollTrigger: { trigger: element, start: "top 82%", once: true, onComplete: () => gsap.set(element, { clearProps: "clipPath" }) } }));
@@ -628,15 +677,22 @@ function initExperience() {
 
 function showCover(introDelay = 0) {
   if (cover.classList.contains("is-visible")) return;
+  const revealContent = cover.querySelectorAll(coverRevealSelector);
+  const topbar = cover.querySelector(".topbar");
+  const scrollCue = cover.querySelector(".scroll-cue");
+  if (!reducedMotion) {
+    gsap.set(revealContent, { autoAlpha: 0, y: 30, scale: .975 });
+    gsap.set(topbar, { autoAlpha: 0, y: -12 });
+  }
   cover.classList.add("is-visible");
   envelopeScreen.style.pointerEvents = "none";
   envelopeScreen.setAttribute("aria-hidden", "true");
   cover.removeAttribute("aria-hidden");
-  const content = cover.querySelectorAll(".cover-intro, .english-names, .respect, .date-row, .lunar, .venue, .scroll-cue");
-  gsap.timeline()
-    .fromTo(".cover-photo", { scale: 1.055 }, { scale: 1, duration: 1.15, ease: "power2.out" })
-    .fromTo(content, { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: .62, stagger: .045, ease: "power3.out" }, .08 + introDelay);
-  animateLogo(cover.querySelector(".name-logo--hero"), .12 + introDelay);
+  if (!reducedMotion) {
+    gsap.timeline()
+      .fromTo(".cover-photo", { scale: 1.055 }, { scale: 1, duration: 1.15, ease: "power2.out" })
+      .fromTo(scrollCue, { y: 18, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: .65, ease: "power3.out" }, .12 + introDelay);
+  }
   initExperience();
 }
 

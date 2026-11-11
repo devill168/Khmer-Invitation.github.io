@@ -81,12 +81,16 @@ button { color: inherit; font: inherit; }
 
 .wax-seal { position: absolute; z-index: 8; left: 50%; top: 49%; width: clamp(68px, 17vw, 102px); aspect-ratio: 1; transform: translate(-50%, -50%); border: 0; padding: 0; background: none; cursor: pointer; border-radius: 50%; filter: drop-shadow(0 8px 7px rgba(0,0,0,.42)); will-change: transform, filter; }
 .wax-seal svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.seal-hand { position: absolute; z-index: 2; left: 18%; top: 38%; width: clamp(36px, 9vw, 52px); color: #fff0c7; pointer-events: none; transform-origin: 48% 18%; filter: drop-shadow(0 3px 3px rgba(0,0,0,.55)); animation: sealHandTap 1.9s ease-in-out infinite; }
+.seal-hand::before { content: ""; position: absolute; left: 48%; top: 17%; width: 12px; height: 12px; border: 2px solid rgba(255,231,163,.86); border-radius: 50%; transform: translate(-50%,-50%) scale(.2); opacity: 0; animation: sealTapRipple 1.9s ease-out infinite; }
+.seal-hand svg { width: 100%; height: auto; }
+.seal-hand path { fill: currentColor; stroke: #6c4519; stroke-width: .55; paint-order: stroke fill; }
 .seal-crest { fill: none; stroke: #704816; stroke-width: 2.1; stroke-linecap: round; filter: drop-shadow(0 1px 0 rgba(255,237,181,.3)); }
 
 .name-logo { position: relative; color: #a9782d; }
 .logo-crest { position: absolute; width: 28%; left: 36%; top: 1%; }
 .logo-stage { position: absolute; inset: 22% 0 0; }
-.logo-name { position: absolute; z-index: 2; padding: .35em .24em .28em; font-family: "Moulpali", serif; line-height: 1.9; white-space: nowrap; background: var(--foil); background-size: 230% 100%; background-clip: text; -webkit-background-clip: text; color: transparent; filter: drop-shadow(0 1px 0 rgba(255,248,207,.25)); }
+.logo-name { position: absolute; z-index: 2; padding: .35em .24em .28em; font-family: "Khmer OS Muol Light", "Moulpali", serif; line-height: 1.9; white-space: nowrap; background: var(--foil); background-size: 230% 100%; background-clip: text; -webkit-background-clip: text; color: transparent; filter: drop-shadow(0 1px 0 rgba(255,248,207,.25)); }
 .logo-name--groom { top: 1%; left: 2%; }
 .logo-name--bride { right: 1%; bottom: 0; }
 .logo-flourish { position: absolute; inset: 12% 7% 8%; width: 86%; height: 76%; overflow: visible; }
@@ -94,6 +98,8 @@ button { color: inherit; font: inherit; }
 .logo-heart { position: absolute; left: 52%; top: 43%; font-size: .6em; color: #c69a4b; }
 .logo-butterfly { position: absolute; width: 11%; right: 20%; top: 21%; overflow: visible; }
 .name-logo--flap { width: 64%; height: 78%; transform: translateY(4%); font-size: clamp(.48rem, 2.4vw, .88rem); }
+.name-logo--flap .logo-name,
+.name-logo--flap .logo-heart { display: none; }
 .name-logo--flap .logo-name--bride { top: 30%; right: 0; bottom: auto; }
 .name-logo--card { width: 60%; height: 41%; font-size: clamp(.5rem, 2.3vw, .86rem); }
 .name-logo--card .logo-crest { top: -12%; }
@@ -103,46 +109,49 @@ button { color: inherit; font: inherit; }
 .inner-card .name-logo--card .logo-heart { color: #805a1d; }
 .inner-card .card-whisper { color: #493a1d; text-shadow: 0 1px 0 rgba(255,255,255,.62); }
 
-.open-prompt { position: relative; z-index: 3; align-self: end; display: grid; justify-items: center; gap: 10px; padding-bottom: clamp(2px, 1.2svh, 14px); }
-.prompt-line { display: block; width: 1px; height: 34px; background: linear-gradient(transparent, #c9a251); animation: breathe 2.4s ease-in-out infinite; }
-.prompt-copy { padding: .35em .2em .3em; font-size: clamp(.7rem, 3vw, .85rem); line-height: 1.8; color: rgba(244,234,207,.72); }
+.open-prompt { position: absolute; z-index: 9; left: 50%; top: calc(49% + clamp(58px, 13vw, 80px)); width: max-content; max-width: 92%; transform: translateX(-50%); display: grid; justify-items: center; pointer-events: none; }
+.prompt-copy { padding: .35em .2em .3em; font-family: "Khmer OS Muol Light", "Moulpali", serif; font-size: clamp(.9rem, 3vw, 0.9rem); line-height: 1.8; color: rgba(255,240,193,.92); white-space: nowrap; text-shadow: 0 2px 8px rgba(0,0,0,.72); transform-origin: center; animation: promptZoom 1.8s ease-in-out infinite; }
 .opening-status { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
 
-.cover { position: relative; z-index: 1; width: 100%; height: 100vh; height: 100dvh; min-height: 100svh; visibility: hidden; opacity: 0; background: #10120d; isolation: isolate; }
+.cover { position: relative; z-index: 1; width: 100%; height: auto; min-height: 100svh; padding: calc(78px + 1vh) clamp(20px, 4vw, 64px) 28px; display: grid; place-items: center; visibility: hidden; opacity: 0; background: #10120d; isolation: isolate; }
 .cover.is-visible { visibility: visible !important; opacity: 1; }
-.cover-photo { inset: 0; width: 100%; height: 100%; background-image: url("/assets/pre-wedding-2000.webp"); background-position: center 58%; background-size: cover; background-repeat: no-repeat; }
-.cover-vignette { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(8,10,6,.7) 0%, rgba(8,10,6,.18) 30%, rgba(8,10,6,.2) 66%, rgba(7,8,5,.68) 100%), radial-gradient(circle at center 46%, transparent 18%, rgba(5,6,4,.24) 100%); }
+.cover-media { position: absolute; z-index: 0; inset: 0; overflow: hidden; will-change: clip-path; }
+.cover-photo { inset: 0; width: 100%; height: 100%; background-image: url("/assets/pre-wedding-2000.webp"); background-position: center 55%; background-size: cover; background-repeat: no-repeat; filter: saturate(.85) brightness(.9); }
+.cover-vignette { position: absolute; inset: 0; background: radial-gradient(90% 70% at 50% 45%, rgba(14,12,8,.52) 0%, rgba(14,12,8,.78) 70%, rgba(14,12,8,.9) 100%), linear-gradient(180deg, rgba(14,12,8,.55) 0%, rgba(14,12,8,.2) 40%, rgba(14,12,8,.75) 100%); }
 .topbar { position: fixed; z-index: 20; top: 0; left: 0; right: 0; height: clamp(74px, 11svh, 96px); display: flex; align-items: center; justify-content: space-between; padding: max(10px, env(safe-area-inset-top)) max(15px, env(safe-area-inset-right)) 8px max(15px, env(safe-area-inset-left)); background: linear-gradient(rgba(8,9,6,.72), transparent); transition: background .45s ease, backdrop-filter .45s ease; }
 .topbar.is-scrolled { background: linear-gradient(rgba(8,9,6,.92), rgba(8,9,6,.38), transparent); backdrop-filter: blur(7px); }
-.name-logo--mini { width: clamp(114px, 30vw, 170px); height: 58px; font-size: clamp(.35rem, 1.3vw, .52rem); }
+.name-logo--mini { width: clamp(124px, 32vw, 184px); height: 62px; font-size: clamp(.42rem, 1.5vw, .62rem); }
 .topbar-actions { display: flex; gap: 8px; }
-.round-button { width: 38px; height: 38px; border: 1px solid rgba(239,220,164,.34); border-radius: 50%; background: rgba(12,14,9,.26); backdrop-filter: blur(8px); display: grid; place-items: center; cursor: pointer; font: 600 .67rem/1 "Cormorant Garamond", serif; letter-spacing: .05em; }
+.round-button { width: 40px; height: 40px; border: 1px solid rgba(239,220,164,.42); border-radius: 50%; background: rgba(12,14,9,.38); backdrop-filter: blur(8px); display: grid; place-items: center; cursor: pointer; font: 600 .76rem/1 "Cormorant Garamond", serif; letter-spacing: .05em; }
 .round-button svg { width: 15px; fill: #e5c878; }
 .music-icon { width: 17px; height: 17px; display: block; filter: brightness(0) saturate(100%) invert(84%) sepia(35%) saturate(718%) hue-rotate(355deg) brightness(94%) contrast(88%); }
 .music-toggle.is-on { background: rgba(170,126,47,.25); box-shadow: 0 0 18px rgba(211,174,94,.2); }
 .music-toggle.is-disabled { opacity: .48; cursor: not-allowed; }
-.cover-content { position: absolute; z-index: 4; inset: clamp(74px, 11svh, 96px) 16px clamp(62px, 10svh, 86px); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
-.cover-crest { position: relative; width: clamp(76px, 20vw, 115px); color: #d0aa54; margin-bottom: clamp(-2px, .2svh, 3px); }
-.ceremonial { margin: 0; padding: .38em .25em .26em; font-family: "Moul", serif; font-size: clamp(.7rem, 3.4vw, 1.15rem); line-height: 1.8; background: var(--foil); background-clip: text; -webkit-background-clip: text; color: transparent; filter: drop-shadow(0 2px 5px rgba(0,0,0,.48)); }
-.name-logo--hero { width: min(82vw, 500px); height: clamp(116px, 20svh, 184px); font-size: clamp(.72rem, 4.4vw, 1.7rem); flex: 0 0 auto; margin: clamp(-6px, -1svh, -2px) 0; }
+.cover-content { position: relative; z-index: 4; width: min(560px, 100%); display: grid; justify-items: center; align-content: center; text-align: center; }
+.cover-crest { position: relative; width: clamp(80px, 14svh, 150px); color: #d0aa54; margin-bottom: .2rem; }
+.ceremonial { margin: 0; padding: .3em .25em .2em; font-family: "Moul", serif; font-size: clamp(1.1rem, 4.6vw, 1.75rem); line-height: 2.05; background: var(--foil); background-clip: text; -webkit-background-clip: text; color: transparent; filter: drop-shadow(0 2px 7px rgba(0,0,0,.68)); }
+.name-logo--hero { width: min(500px, 86vw, 52svh); height: clamp(132px, 20svh, 190px); font-size: clamp(1rem, 4.8vw, 2rem); flex: 0 0 auto; margin: .2rem 0 0; filter: drop-shadow(0 4px 16px rgba(0,0,0,.62)); }
 .name-logo--hero .logo-crest { width: 22%; left: 39%; }
-.english-names { display: flex; align-items: center; gap: clamp(8px, 2.5vw, 22px); margin-top: -3px; font: 600 clamp(.78rem, 3.1vw, 1.18rem)/1 "Cormorant Garamond", serif; letter-spacing: .08em; text-transform: uppercase; color: #f2e5c7; }
+.english-names { display: flex; align-items: center; gap: clamp(9px, 2.6vw, 24px); margin-top: -.6rem; font: 600 clamp(1.05rem, 3.2vw, 1.65rem)/1.1 "Cormorant Garamond", serif; letter-spacing: .06em; text-transform: uppercase; color: #f8df9a; text-shadow: 0 2px 10px rgba(0,0,0,.68); }
 .english-names i { font: 400 1.35em/1 "Pinyon Script", cursive; color: #d1ac5b; }
-.respect { margin: clamp(3px, .7svh, 8px) 0 0; padding: .38em .2em .3em; font-family: "Moul", serif; font-size: clamp(.76rem, 3vw, 1.08rem); line-height: 1.8; color: #e1c579; }
-.date-row { width: min(90vw, 530px); display: grid; grid-template-columns: repeat(4, 1fr); margin-top: clamp(2px, .8svh, 8px); border-top: 1px solid rgba(225,197,121,.36); border-bottom: 1px solid rgba(225,197,121,.36); }
+.respect { margin: .35rem 0 0; padding: .3em .2em .22em; font-family: "Moul", serif; font-size: clamp(1rem, 3.6vw, 1.3rem); line-height: 2; color: #f1e5c8; text-shadow: 0 1px 8px rgba(0,0,0,.7); }
+.date-row { width: min(460px, 100%); display: grid; grid-template-columns: repeat(4, 1fr); margin: .75rem 0 .45rem; border-top: 1px solid rgba(217,177,90,.5); border-bottom: 1px solid rgba(217,177,90,.5); background: rgba(14,12,8,.28); backdrop-filter: blur(2px); }
 .date-cell { display: grid; min-width: 0; padding: clamp(5px, .9svh, 10px) 3px; position: relative; }
 .date-cell + .date-cell::before { content: ""; position: absolute; left: 0; top: 22%; bottom: 22%; width: 1px; background: rgba(225,197,121,.28); }
-.date-label { padding: .15em 0; font-size: clamp(.58rem, 2.35vw, .82rem); line-height: 1.8; color: rgba(244,233,205,.68); }
-.date-value { padding: .2em 0; font-size: clamp(.72rem, 2.8vw, .98rem); line-height: 1.6; color: #f0e4c5; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.lunar, .venue { margin: clamp(3px, .6svh, 7px) 0 0; padding: .15em .2em; font-size: clamp(.68rem, 2.7vw, .98rem); line-height: 1.8; color: rgba(245,235,211,.78); }
+.date-label { padding: .12em 0; font-size: clamp(.72rem, 2.5vw, .9rem); line-height: 1.6; color: rgba(241,229,200,.76); text-shadow: 0 1px 8px rgba(0,0,0,.7); }
+.date-value { padding: .12em 0 .22em; font-family: "Moul", serif; font-size: clamp(1rem, 3.6vw, 1.25rem); font-weight: 400; line-height: 1.8; color: #f8df9a; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-shadow: 0 1px 8px rgba(0,0,0,.7); }
+.lunar, .venue { margin: .15rem 0 0; padding: .12em .2em; max-width: 34em; font-size: clamp(.84rem, 2.8vw, 1.05rem); line-height: 1.8; color: rgba(245,235,211,.88); text-shadow: 0 1px 8px rgba(0,0,0,.7); }
 .venue { color: #e0c57b; margin-top: 0; }
 .corner { position: absolute; fill: none; stroke: currentColor; stroke-width: 1.1; stroke-linecap: round; }
-.cover-corner { z-index: 3; width: clamp(100px, 30vw, 240px); color: rgba(213,180,103,.52); filter: drop-shadow(0 2px 5px rgba(0,0,0,.4)); }
-.cover-corner--tl { top: clamp(58px, 8svh, 76px); left: -12px; }
-.cover-corner--br { right: -12px; bottom: 28px; }
+.cover-corner { z-index: 3; width: clamp(120px, 30vw, 240px); pointer-events: none; opacity: .74; filter: saturate(1.14) brightness(1.08) drop-shadow(0 4px 9px rgba(0,0,0,.48)); }
+.cover-corner--tl { top: 0; left: 0; width: clamp(150px, 34vw, 270px); opacity: .86; transform: translate(-6%, -6%) rotate(-1.5deg); transform-origin: top left; }
+.cover-corner--br { right: -12px; bottom: 28px; opacity: .66; }
 .cover-corner--br .corner-mirror { transform: translate(180px 180px) rotate(180deg); transform-origin: center; }
-.scroll-cue { position: absolute; z-index: 5; right: max(14px, env(safe-area-inset-right)); bottom: max(16px, env(safe-area-inset-bottom)); display: flex; align-items: center; gap: 8px; writing-mode: vertical-rl; font-size: .52rem; line-height: 1.5; letter-spacing: .08em; color: rgba(244,233,205,.6); }
-.scroll-cue i { width: 1px; height: 28px; background: linear-gradient(#d4b05f, transparent); animation: breathe 2.3s ease-in-out infinite; }
+.scroll-cue { position: static; z-index: 5; margin-top: 1.15rem; font-family: "Khmer OS Muol Light"; display: grid; justify-items: center; gap: .4rem; writing-mode: horizontal-tb; font-size: clamp(.95rem, 2.5vw, 1.05rem); line-height: 1.5; letter-spacing: .04em; color: rgba(244,233,205,.72); }
+.scroll-hand { width: clamp(52px, 11vw, 68px); height: clamp(56px, 12vw, 74px); color: #f4d98d; filter: drop-shadow(0 3px 5px rgba(0,0,0,.55)); transform-origin: center; animation: scrollHandDown 2.2s ease-in-out infinite; }
+.scroll-hand svg { display: block; width: 100%; height: 100%; }
+.scroll-hand path { fill: currentColor; stroke: #75501f; stroke-width: .5; paint-order: stroke fill; }
+.scroll-cue > i { width: 1px; height: 30px; margin-top: -5px; background: linear-gradient(#d4b05f, transparent); animation: breathe 2.3s ease-in-out infinite; }
 
 .invitation-locked { overflow: hidden; }
 .paper-section, .dark-section, .countdown-section, .gift-section, .finale-section { position: relative; overflow: hidden; }
@@ -334,6 +343,10 @@ button { color: inherit; font: inherit; }
 .finale-section footer strong { font-weight: 600; color: rgba(238,225,194,.62); }
 
 @keyframes breathe { 0%, 100% { opacity: .36; transform: scaleY(.75); } 50% { opacity: 1; transform: scaleY(1); } }
+@keyframes promptZoom { 0%, 100% { opacity: .8; transform: scale(.92); } 50% { opacity: 1; transform: scale(1.08); } }
+@keyframes sealHandTap { 0%, 12%, 100% { opacity: 0; transform: translate(14px,18px) rotate(-18deg) scale(.96); } 22%, 72% { opacity: .96; } 43% { transform: translate(0,0) rotate(-18deg) scale(.96); } 50% { transform: translate(-2px,-2px) rotate(-18deg) scale(.84); } 60%, 78% { transform: translate(0,0) rotate(-18deg) scale(.96); } 88% { opacity: 0; transform: translate(8px,10px) rotate(-18deg) scale(.96); } }
+@keyframes sealTapRipple { 0%, 42% { opacity: 0; transform: translate(-50%,-50%) scale(.2); } 50% { opacity: .9; transform: translate(-50%,-50%) scale(.45); } 68%, 100% { opacity: 0; transform: translate(-50%,-50%) scale(2.2); } }
+@keyframes scrollHandDown { 0%, 10%, 100% { opacity: 0; transform: translateY(-9px) scale(.94); } 24% { opacity: .95; } 68% { opacity: .95; transform: translateY(10px) scale(1); } 88% { opacity: 0; transform: translateY(18px) scale(.96); } }
 @keyframes marquee { to { transform: translateX(-50%); } }
 @keyframes ripple { to { width: 360px; height: 120px; opacity: 0; } }
 @keyframes lanternFloat { 0%,100% { transform: translate(-50%,-50%) translateY(0) rotate(-2deg); } 50% { transform: translate(-50%,-50%) translateY(-14px) rotate(3deg); } }
@@ -388,13 +401,12 @@ button { color: inherit; font: inherit; }
   .envelope-screen { padding-top: 16px; padding-bottom: 12px; }
   .envelope-heading { padding-top: 0; }
   .envelope-stage-wrap { width: min(74vw, 430px); max-height: 52svh; }
-  .open-prompt { position: absolute; right: 16px; bottom: 12px; }
-  .prompt-line { height: 20px; }
-  .cover-content { inset-top: 54px; transform: scale(.86); transform-origin: center; }
-  .name-logo--hero { height: 108px; }
-  .cover-crest { width: 68px; }
+  .cover { padding-top: 64px; }
+  .cover-content { inset: auto; transform: none; }
+  .name-logo--hero { height: 132px; }
+  .cover-crest { width: 76px; }
   .topbar { height: 62px; }
-  .cover-corner--tl { top: 50px; }
+  .cover-corner--tl { top: 0; }
 }
 
 @media (min-width: 800px) {
@@ -408,30 +420,35 @@ button { color: inherit; font: inherit; }
   .envelope-screen { grid-template-columns: 35% 65%; grid-template-rows: 1fr; padding: 12px 4vw; }
   .envelope-heading { grid-column: 1; align-self: center; max-width: 280px; }
   .envelope-stage-wrap { grid-column: 2; width: min(45vw, 350px); height: auto; max-height: 70svh; }
-  .open-prompt { left: 8vw; right: auto; bottom: 22px; }
-  .cover-content { inset: 42px 14vw 36px; transform: scale(.72); }
+  .cover { padding: 60px 10vw 22px; }
+  .cover-content { inset: auto; transform: none; }
+  .name-logo--hero { width: min(420px, 72vw, 46svh); height: 120px; }
   .topbar { height: 58px; }
-  .cover-corner { width: 120px; }
+  .cover-corner { width: clamp(130px, 24vw, 180px); }
 }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; }
+  .seal-hand { animation: none !important; opacity: .9; transform: translate(0,0) rotate(-18deg) scale(.94); }
+  .seal-hand::before { display: none; }
+  .scroll-hand { animation: none !important; opacity: .9; transform: none; }
 }
 
 /* Responsive typography: phone readability and comfortable laptop scaling. */
 @media (max-width: 680px) {
+  .cover { padding-left: 1.4rem; padding-right: 1.4rem; }
   .eyebrow { font-size: clamp(.86rem, 4vw, 1rem); }
-  .english-title,
-  .prompt-copy { font-size: clamp(.72rem, 3.2vw, .82rem); }
-  .name-logo--hero { font-size: clamp(.78rem, 4.4vw, 1.08rem); }
-  .ceremonial { font-size: clamp(.78rem, 3.8vw, .98rem); }
-  .english-names { justify-content: center; flex-wrap: wrap; font-size: clamp(.78rem, 3.35vw, .94rem); line-height: 1.25; }
-  .respect { font-size: clamp(.78rem, 3.4vw, .94rem); }
-  .date-label { font-size: clamp(.64rem, 2.8vw, .76rem); }
-  .date-value { font-size: clamp(.74rem, 3.1vw, .88rem); }
+  .english-title { font-size: clamp(.72rem, 3.2vw, .82rem); }
+  .prompt-copy { font-size: clamp(.9rem, 3.8vw, 1rem); }
+  .name-logo--hero { font-size: clamp(1.05rem, 5.3vw, 1.42rem); }
+  .ceremonial { font-size: clamp(1.05rem, 4.7vw, 1.25rem); }
+  .english-names { justify-content: center; flex-wrap: wrap; font-size: clamp(1rem, 4.1vw, 1.18rem); line-height: 1.25; }
+  .respect { font-size: clamp(1rem, 4.2vw, 1.18rem); }
+  .date-label { font-size: clamp(.72rem, 3vw, .86rem); }
+  .date-value { font-size: clamp(.95rem, 3.8vw, 1.08rem); }
   .lunar,
-  .venue { font-size: clamp(.7rem, 3vw, .84rem); }
-  .scroll-cue { font-size: .62rem; }
+  .venue { font-size: clamp(.86rem, 3.5vw, 1rem); }
+  .scroll-cue { font-size: 1.2rem; }
   .section-title { font-size: clamp(1.08rem, 5.3vw, 1.45rem); }
   .section-label,
   .section-kicker { font-size: .76rem; }
