@@ -111,6 +111,29 @@ const parentLines = (side) => `
   <p>អ្នកស្រី ${wedding.parents[side].mother}</p>`;
 
 document.querySelector("#app").innerHTML = `
+  <div class="preloader" id="preloader" role="status" aria-label="កំពុងរៀបចំធៀបការ">
+    <div class="preloader-inner">
+      <div class="preloader-heart" aria-hidden="true">
+        <span class="preloader-heart-glow"></span>
+        <svg viewBox="0 0 100 100" focusable="false">
+          <defs>
+            <linearGradient id="preloader-heart-gold" x1="12" y1="12" x2="86" y2="90" gradientUnits="userSpaceOnUse">
+              <stop offset="0" stop-color="#8b5b18" />
+              <stop offset=".28" stop-color="#f5d681" />
+              <stop offset=".52" stop-color="#fff1b3" />
+              <stop offset=".76" stop-color="#c58c2c" />
+              <stop offset="1" stop-color="#f7d97f" />
+            </linearGradient>
+          </defs>
+          <path class="preloader-heart-track" d="M50 87 17 56C-4 36 7 8 32 9c8 0 15 4 18 11 4-7 10-11 18-11 25-1 36 27 15 47L50 87Z" />
+          <path class="preloader-heart-progress" d="M50 87 17 56C-4 36 7 8 32 9c8 0 15 4 18 11 4-7 10-11 18-11 25-1 36 27 15 47L50 87Z" />
+          <path class="preloader-heart-core" d="M50 78 23 53C7 38 15 18 33 18c8 0 14 5 17 11 3-6 9-11 17-11 18 0 26 20 10 35L50 78Z" />
+        </svg>
+      </div>
+      <div class="preloader-count" id="preloader-count" aria-hidden="true">០</div>
+    </div>
+    <div class="preloader-curtain" aria-hidden="true"></div>
+  </div>
   <main class="experience" data-lang="km">
     <section class="envelope-screen" aria-labelledby="envelope-title">
       <div class="envelope-backdrop" aria-hidden="true"></div>
@@ -320,7 +343,7 @@ document.querySelector("#app").innerHTML = `
           ${crest("section-crest")}
           <h2 class="section-title lang-km" id="programme-title">${copy.km.programme}</h2>
           <h2 class="section-title lang-en">${copy.en.programme}</h2>
-          <p class="programme-date lang-km">${copy.km.programmeDate}</p><p class="programme-date lang-en">${copy.en.programmeDate}</p>
+          <p class="programme-date lang-km" aria-label="${copy.km.programmeDate}"><span class="programme-date-text" aria-hidden="true">${copy.km.programmeDate}</span><span class="typing-cursor" aria-hidden="true"></span></p><p class="programme-date lang-en" aria-label="${copy.en.programmeDate}"><span class="programme-date-text" aria-hidden="true">${copy.en.programmeDate}</span><span class="typing-cursor" aria-hidden="true"></span></p>
         </div>
         <figure class="programme-art" aria-hidden="true">
           <span class="programme-art-halo"></span>
@@ -390,8 +413,10 @@ document.querySelector("#app").innerHTML = `
               : `<div class="map-placeholder">${crest("map-crest")}<span class="lang-km">${copy.km.mapPending}</span><span class="lang-en">${copy.en.mapPending}</span></div>`}
         </div>
         <div class="venue-actions">
-          <a class="gold-button ${wedding.venue.lat ? "" : "is-disabled"}" ${wedding.venue.lat ? `href="https://www.google.com/maps?q=${wedding.venue.lat},${wedding.venue.lng}" target="_blank" rel="noreferrer"` : "aria-disabled=\"true\""}><span class="lang-km">${copy.km.openMaps}</span><span class="lang-en">${copy.en.openMaps}</span></a>
-          <button class="gold-button" id="calendar-button" type="button"><span class="lang-km">${copy.km.calendar}</span><span class="lang-en">${copy.en.calendar}</span></button>
+          <a class="gold-button map-button ${wedding.venue.lat ? "" : "is-disabled"}" ${wedding.venue.lat ? `href="https://www.google.com/maps?q=${wedding.venue.lat},${wedding.venue.lng}" target="_blank" rel="noreferrer"` : "aria-disabled=\"true\""}>
+            <span class="map-button-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21s6-5.15 6-11a6 6 0 1 0-12 0c0 5.85 6 11 6 11Z"/><circle cx="12" cy="10" r="2.25"/></svg></span>
+            <span class="map-button-label"><span class="lang-km">${copy.km.openMaps}</span><span class="lang-en">${copy.en.openMaps}</span></span>
+          </a>
         </div>
       </div>
     </section>
@@ -401,9 +426,6 @@ document.querySelector("#app").innerHTML = `
         ${crest("section-crest")}
         <h2 class="section-title lang-km" id="gift-title">${copy.km.gift}</h2><h2 class="section-title lang-en">${copy.en.gift}</h2>
         <p class="gift-body lang-km">${copy.km.giftBody}</p><p class="gift-body lang-en">${copy.en.giftBody}</p>
-        <div class="qr-grid">
-          ${["KHQR", "ABA PAY"].map((label) => `<article class="qr-card"><strong>${label}</strong><div class="qr-placeholder">${crest("qr-crest")}<span class="lang-km">${copy.km.qrPending}</span><span class="lang-en">${copy.en.qrPending}</span></div><button class="qr-save" type="button" disabled><span class="lang-km">${copy.km.saveQr}</span><span class="lang-en">${copy.en.saveQr}</span></button></article>`).join("")}
-        </div>
       </div>
     </section>
 
@@ -414,14 +436,8 @@ document.querySelector("#app").innerHTML = `
         ${crest("finale-crest")}
         <h2 class="section-title lang-km" id="thanks-title">${copy.km.thanks}</h2><h2 class="section-title lang-en">${copy.en.thanks}</h2>
         <p class="lang-km">${copy.km.thanksBody}</p><p class="lang-en">${copy.en.thanksBody}</p>
-        <div class="share-grid">
-          <button data-share="telegram" type="button"><b aria-hidden="true"><img src="${assetUrl("icon_telegram.png")}" alt="" /></b><span class="lang-km">${copy.km.shareTelegram}</span><span class="lang-en">${copy.en.shareTelegram}</span></button>
-          <button data-share="messenger" type="button"><b aria-hidden="true"><img src="${assetUrl("icon_messager.png")}" alt="" /></b><span class="lang-km">${copy.km.shareMessenger}</span><span class="lang-en">${copy.en.shareMessenger}</span></button>
-          <button data-share="facebook" type="button"><b aria-hidden="true"><img src="${assetUrl("icon_facebook.png")}" alt="" /></b><span class="lang-km">${copy.km.shareFacebook}</span><span class="lang-en">${copy.en.shareFacebook}</span></button>
-          <button data-share="copy" type="button"><b aria-hidden="true"><img src="${assetUrl("icon_link.png")}" alt="" /></b><span class="lang-km">${copy.km.copyLink}</span><span class="lang-en">${copy.en.copyLink}</span></button>
-        </div>
-        ${nameLogo("name-logo--finale")}
       </div>
+      ${nameLogo("name-logo--finale reveal-copy")}
       <footer class="site-credits">
         <span>Developed by Saky Unfake.</span>
         <span>Design inspired by Someth Phay.</span>
@@ -468,6 +484,77 @@ function startInvitationMusic() {
   invitationMusic.volume = 0.65;
   invitationMusic.play().then(() => setMusicState(true)).catch(() => setMusicState(false));
 }
+
+function initPreloader() {
+  const preloader = document.querySelector("#preloader");
+  const count = document.querySelector("#preloader-count");
+  const heart = preloader.querySelector(".preloader-heart");
+  const heartProgress = preloader.querySelector(".preloader-heart-progress");
+  const heartCore = preloader.querySelector(".preloader-heart-core");
+  const curtain = preloader.querySelector(".preloader-curtain");
+  const khmerDigits = "០១២៣៤៥៦៧៨៩";
+  const toKhmerNumber = (value) => String(Math.round(value)).replace(/\d/g, (digit) => khmerDigits[Number(digit)]);
+  const pathLength = heartProgress.getTotalLength();
+  const progress = { value: 0 };
+
+  openButton.disabled = true;
+  openButton.setAttribute("aria-disabled", "true");
+  gsap.set(heartProgress, { strokeDasharray: pathLength, strokeDashoffset: pathLength });
+  gsap.set(heartCore, { scale: 0, opacity: 0, transformOrigin: "50% 50%" });
+  gsap.set(curtain, { yPercent: 100 });
+
+  const renderProgress = () => {
+    const value = Math.max(0, Math.min(100, progress.value));
+    count.textContent = toKhmerNumber(value);
+    gsap.set(heartProgress, { strokeDashoffset: pathLength * (1 - value / 100) });
+  };
+
+  const criticalImage = new Image();
+  criticalImage.src = wedding.assets.hero;
+  const imageReady = criticalImage.decode ? criticalImage.decode().catch(() => undefined) : Promise.resolve();
+  const fontsReady = document.fonts?.ready ?? Promise.resolve();
+  const minimumDelay = new Promise((resolve) => setTimeout(resolve, reducedMotion ? 250 : 1500));
+
+  const finish = () => {
+    preloader.remove();
+    openButton.disabled = false;
+    openButton.removeAttribute("aria-disabled");
+  };
+
+  if (reducedMotion) {
+    Promise.all([fontsReady, imageReady, minimumDelay]).then(() => {
+      progress.value = 100;
+      renderProgress();
+      gsap.set(heartCore, { scale: 1, opacity: .8 });
+      gsap.to(preloader, { opacity: 0, duration: .25, onComplete: finish });
+    });
+    return;
+  }
+
+  const progressTween = gsap.to(progress, {
+    value: 92,
+    duration: 2.2,
+    ease: "power1.out",
+    onUpdate: renderProgress,
+  });
+
+  Promise.all([fontsReady, imageReady, minimumDelay]).then(() => {
+    progressTween.kill();
+    gsap.to(progress, {
+      value: 100,
+      duration: .5,
+      ease: "power2.out",
+      onUpdate: renderProgress,
+      onComplete: () => {
+        gsap.timeline({ onComplete: finish })
+          .to(heartCore, { scale: 1, opacity: .82, duration: .42, ease: "back.out(2.2)" })
+          .to(heart, { scale: 1.12, duration: .45, ease: "power2.inOut" }, "<")
+          .to(curtain, { yPercent: 0, duration: .55, ease: "power3.inOut" }, "+=.12")
+          .to(preloader, { yPercent: -100, duration: 1.05, ease: "power4.inOut" });
+      },
+    });
+  });
+}
 let experienceReady = false;
 document.documentElement.classList.add("invitation-locked");
 
@@ -506,6 +593,57 @@ function updateCountdown() {
   });
 }
 
+function initProgrammeDateTyping() {
+  const dates = [...document.querySelectorAll(".programme-date")];
+  if (!dates.length || reducedMotion) return;
+
+  const segmentText = (text, lang) => {
+    if (typeof Intl.Segmenter !== "function") return Array.from(text);
+    const segmenter = new Intl.Segmenter(lang === "km" ? "km-KH" : "en", { granularity: "grapheme" });
+    return [...segmenter.segment(text)].map(({ segment }) => segment);
+  };
+
+  dates.forEach((date) => {
+    const textNode = date.querySelector(".programme-date-text");
+    textNode.dataset.fullText = textNode.textContent;
+    textNode.textContent = "";
+  });
+
+  const typeDate = (date) => {
+    const textNode = date.querySelector(".programme-date-text");
+    const fullText = textNode.dataset.fullText;
+    const characters = segmentText(fullText, date.classList.contains("lang-km") ? "km" : "en");
+    let index = 0;
+    date.classList.add("is-typing");
+
+    const typeNext = () => {
+      index += 1;
+      textNode.textContent = characters.slice(0, index).join("");
+      if (index < characters.length) {
+        setTimeout(typeNext, 90 + Math.random() * 45);
+      } else {
+        date.classList.remove("is-typing");
+        date.classList.add("is-typed");
+      }
+    };
+
+    setTimeout(typeNext, 300);
+  };
+
+  const programme = document.querySelector("#programme");
+  if (!("IntersectionObserver" in window)) {
+    dates.forEach(typeDate);
+    return;
+  }
+  const observer = new IntersectionObserver((entries) => {
+    if (!entries.some((entry) => entry.isIntersecting)) return;
+    observer.disconnect();
+    dates.forEach(typeDate);
+  }, { rootMargin: "0px 0px -25% 0px", threshold: 0 });
+
+  observer.observe(programme);
+}
+
 function initGallery() {
   const viewer = document.querySelector("#gallery-viewer");
   const viewerImage = viewer.querySelector("img");
@@ -532,32 +670,6 @@ function initGallery() {
     if (event.key === "ArrowLeft") show(activeIndex - 1);
     if (event.key === "ArrowRight") show(activeIndex + 1);
   });
-}
-
-function initSharing() {
-  const shareText = `${copy[currentLang].invitation} — ${wedding.couple.groom.en} & ${wedding.couple.bride.en}`;
-  document.querySelectorAll("[data-share]").forEach((button) => button.addEventListener("click", async () => {
-    const url = location.href;
-    const service = button.dataset.share;
-    if (service === "copy") {
-      await navigator.clipboard?.writeText(url);
-      button.querySelector(`.lang-${currentLang}`).textContent = copy[currentLang].copied;
-      return;
-    }
-    const targets = {
-      telegram: `https://t.me/share/url?url=${encodeURIComponent(addTelegramPreviewVersion(url))}&text=${encodeURIComponent(shareText)}`,
-      messenger: `fb-messenger://share/?link=${encodeURIComponent(url)}`,
-      facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`,
-    };
-    open(targets[service], "_blank", "noopener,noreferrer");
-  }));
-}
-
-function addTelegramPreviewVersion(url) {
-  const shareUrl = new URL(url);
-  shareUrl.hash = "";
-  shareUrl.searchParams.set("preview", "20261101");
-  return shareUrl.toString();
 }
 
 function initCandle() {
@@ -759,8 +871,8 @@ function initExperience() {
   addEventListener("scroll", () => document.querySelector(".topbar").classList.toggle("is-scrolled", scrollY > 40), { passive: true });
   updateCountdown();
   if (wedding.date.iso) setInterval(updateCountdown, 1000);
+  initProgrammeDateTyping();
   initGallery();
-  initSharing();
   initCandle();
   initMotion();
 }
@@ -878,23 +990,8 @@ musicToggle.addEventListener("click", () => {
   }
 });
 
-const calendarButton = document.querySelector("#calendar-button");
-if (!wedding.date.iso) {
-  calendarButton.classList.add("is-disabled");
-  calendarButton.setAttribute("aria-disabled", "true");
-} else {
-  calendarButton.addEventListener("click", () => {
-    const stamp = new Date(wedding.date.iso).toISOString().replace(/[-:]/g, "").replace(/\.\d{3}/, "");
-    const ics = ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//Khmer Invitation//EN", "BEGIN:VEVENT", `DTSTART:${stamp}`, `SUMMARY:${copy.en.invitation}`, `LOCATION:${wedding.venue.en}`, "END:VEVENT", "END:VCALENDAR"].join("\r\n");
-    const link = document.createElement("a");
-    link.href = URL.createObjectURL(new Blob([ics], { type: "text/calendar" }));
-    link.download = "wedding-invitation.ics";
-    link.click();
-    URL.revokeObjectURL(link.href);
-  });
-}
-
 gsap.set(cover, { visibility: "hidden" });
+initPreloader();
 animateLogo(document.querySelector(".name-logo--flap"), .35);
 
 if (!reducedMotion) {

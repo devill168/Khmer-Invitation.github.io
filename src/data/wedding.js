@@ -12,9 +12,9 @@ export const wedding = {
   date: {
     iso: "2027-01-11T17:30:00+07:00",
     weekdayKh: "ថ្ងៃចន្ទ",
-    dayKh: "១១",
-    monthKh: "មករា",
-    yearKh: "២០២៧",
+    dayKh: " ទី១១",
+    monthKh: " ខែមករា",
+    yearKh: "ឆ្នាំ២០២៧",
     weekdayEn: "Monday",
     dayEn: "11",
     monthEn: "January",
@@ -77,8 +77,8 @@ export const wedding = {
       icon: assetUrl("icon_11_30am.png"),
     },
     {
-      timeKh: "ម៉ោង ៥:៣០ ល្ងាច",
-      timeEn: "5:30 PM",
+      timeKh: "ម៉ោង ៥:០០ ល្ងាច",
+      timeEn: "5:00 PM",
       titleKh: "អញ្ជើញភ្ញៀវកិត្តិយស ពិសាភោជនាហារពេលល្ងាច",
       titleEn: "Evening dinner reception for our honoured guests",
       icon: assetUrl("icon_5_30pm.png"),

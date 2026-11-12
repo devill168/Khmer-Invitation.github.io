@@ -33,6 +33,19 @@ button { color: inherit; font: inherit; }
 .experience[data-lang="en"] .lang-km { display: none !important; }
 .experience[data-lang="en"] .lang-en { display: block !important; }
 
+.preloader { position: fixed; z-index: 1000; inset: 0; display: grid; place-items: center; overflow: hidden; background: radial-gradient(circle at 50% 46%, rgba(60,67,38,.42), transparent 34%), #171b12; color: #f2d47f; }
+.preloader::before { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .18; background-image: url("/assets/khmer-invite-starter-kit/textures/paper-olive.webp"); background-size: 360px; mix-blend-mode: soft-light; }
+.preloader-inner { position: relative; z-index: 2; display: grid; justify-items: center; gap: 1rem; }
+.preloader-heart { position: relative; width: clamp(94px, 25vw, 126px); aspect-ratio: 1; filter: drop-shadow(0 12px 26px rgba(0,0,0,.32)); }
+.preloader-heart svg { position: relative; z-index: 2; width: 100%; height: 100%; display: block; overflow: visible; }
+.preloader-heart-glow { position: absolute; inset: 18%; border-radius: 50%; background: rgba(222,177,77,.22); filter: blur(20px); animation: preloaderHeartGlow 1.8s ease-in-out infinite; }
+.preloader-heart-track, .preloader-heart-progress { fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2.2; }
+.preloader-heart-track { stroke: rgba(238,211,139,.18); }
+.preloader-heart-progress { stroke: url(#preloader-heart-gold); filter: drop-shadow(0 0 5px rgba(240,198,96,.45)); }
+.preloader-heart-core { fill: url(#preloader-heart-gold); opacity: 0; }
+.preloader-count { min-width: 4ch; font-family: "Khmer OS Muol Light", "Moul", serif; font-size: clamp(1rem, 3vw, 1.18rem); font-weight: 400; line-height: 1.8; text-align: center; color: #e9c66e; text-shadow: 0 2px 12px rgba(0,0,0,.55); font-variant-numeric: tabular-nums; }
+.preloader-curtain { position: absolute; z-index: 3; inset: 0; background: linear-gradient(180deg, #171b12, #10120d); transform: translateY(100%); }
+
 .envelope-screen, .cover { inset: 0; min-height: 100vh; min-height: 100svh; overflow: hidden; }
 .envelope-screen { position: fixed; z-index: 10; display: grid; grid-template-rows: auto 1fr auto; place-items: center; padding: max(26px, env(safe-area-inset-top)) 16px max(24px, env(safe-area-inset-bottom)); background: #10120d; perspective: 1400px; }
 .envelope-backdrop, .cover-photo { position: absolute; inset: -3%; background: linear-gradient(rgba(9,10,7,.58), rgba(9,10,7,.7)), url("/assets/pre-wedding-2000.webp") center 62% / cover no-repeat; }
@@ -249,7 +262,16 @@ button { color: inherit; font: inherit; }
 .programme-section { position: relative; overflow: hidden; padding: clamp(110px, 14vw, 170px) 0; background: radial-gradient(circle at 50% 17%, rgba(201,159,73,.13), transparent 30%), linear-gradient(180deg, #f4ecdc, #e9dcc4); }
 .programme-section::before { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .23; background-image: url("/assets/khmer-invite-starter-kit/textures/paper-cream.webp"); background-size: 720px; mix-blend-mode: multiply; }
 .programme-shell { position: relative; z-index: 1; max-width: 900px; }
-.programme-date { margin: 4px 0 24px; text-align: center; font-size: clamp(1.05rem, 2.4vw, 1.3rem); line-height: 1.8; color: #7b6a43; }
+.programme-section .section-heading { max-width: 680px; margin: 0 auto clamp(32px, 5vw, 52px); padding-inline: 12px; }
+.programme-section .section-title { width: fit-content; margin-inline: auto; padding: .28em .55em .18em; font-family: "Khmer OS Muol Light", "Moul", serif; font-size: clamp(1.28rem, 4vw, 2rem); line-height: 2; background: linear-gradient(105deg, #76501d, #bd8d35 34%, #e2bd65 52%, #96651f 78%, #624116); background-clip: text; -webkit-background-clip: text; color: transparent; -webkit-text-fill-color: transparent; filter: drop-shadow(0 1px 0 rgba(255,255,255,.52)); }
+.programme-date { position: relative; width: min(100%, 590px); margin: 6px auto 0; padding: .72em 1.15em .62em; border-top: 1px solid rgba(154,111,37,.32); border-bottom: 1px solid rgba(154,111,37,.32); background: linear-gradient(90deg, transparent, rgba(255,255,255,.46) 18%, rgba(201,159,73,.1) 50%, rgba(255,255,255,.46) 82%, transparent); box-shadow: inset 0 1px rgba(255,255,255,.52), 0 8px 24px rgba(102,74,25,.06); font-family: "Khmer OS Muol Light", "Moul", serif; font-size: clamp(1.05rem, 2.4vw, 1.3rem); font-weight: 400; line-height: 1.9; text-align: center; color: #675027; text-shadow: 0 1px 0 rgba(255,255,255,.65); }
+.programme-date::before, .programme-date::after { content: "♥"; position: absolute; top: 50%; font-size: .85em; color: #b0802e; transform: translateY(-50%); opacity: .78; }
+.programme-date::before { left: clamp(7px, 2.5vw, 20px); }
+.programme-date::after { right: clamp(7px, 2.5vw, 20px); }
+.programme-date-text { display: inline; }
+.typing-cursor { display: inline-block; width: 2px; height: 1.08em; margin-left: .16em; border-radius: 999px; background: linear-gradient(#d5a744, #8b5b18); box-shadow: 0 0 7px rgba(181,128,39,.38); vertical-align: -.16em; opacity: 0; }
+.programme-date.is-typing .typing-cursor { opacity: 1; animation: typingCursorBlink .72s steps(1, end) infinite; }
+.programme-date.is-typed .typing-cursor { opacity: 0; transition: opacity .45s ease .35s; }
 .programme-art { position: relative; width: min(480px, 82vw); aspect-ratio: 1; display: grid; place-items: center; margin: 0 auto clamp(34px, 7vw, 70px); }
 .programme-art-halo { position: absolute; inset: 14%; border-radius: 50%; background: radial-gradient(circle, rgba(194,148,55,.24), rgba(194,148,55,.05) 46%, transparent 70%); box-shadow: 0 0 0 1px rgba(158,111,30,.08), 0 25px 80px rgba(80,57,20,.13); }
 .programme-art img { position: relative; z-index: 1; width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 18px 22px rgba(72,49,15,.17)); }
@@ -373,42 +395,44 @@ button { color: inherit; font: inherit; }
 .venue-actions .gold-button { min-height: 52px; border-color: #8e6b2b; background: rgba(255,255,255,.18); box-shadow: 0 8px 18px rgba(73,57,27,.08); transition: transform .3s ease,box-shadow .3s ease,background .3s ease,color .3s ease; }
 .venue-actions a.gold-button { color: #f0dfaf; background: linear-gradient(135deg,#26301d,#151a10); border-color: #a98538; }
 .venue-actions .gold-button:hover, .venue-actions .gold-button:focus-visible { transform: translateY(-2px); box-shadow: 0 13px 28px rgba(73,57,27,.17); outline: none; }
-.venue-actions button.gold-button:hover, .venue-actions button.gold-button:focus-visible { color: #f0dfaf; background: #28301e; }
+.venue-actions .map-button { position: relative; width: min(100%, 430px); min-height: 66px; grid-template-columns: 46px minmax(0,1fr); gap: 12px; padding: 9px 22px 9px 10px; overflow: hidden; border: 1px solid rgba(218,183,103,.72); border-radius: 999px; background: linear-gradient(110deg,#151a10 0%,#2b321e 48%,#171b11 100%); box-shadow: inset 0 1px rgba(255,244,202,.13), 0 14px 30px rgba(41,35,20,.2); font-family: "Khmer OS Muol Light", "Moul", serif; font-size: clamp(.92rem,2.3vw,1.06rem); line-height: 1.6; text-align: center; }
+.map-button::before { content: ""; position: absolute; inset: 0; background: linear-gradient(105deg,transparent 24%,rgba(255,241,188,.16) 46%,transparent 68%); transform: translateX(-120%); transition: transform .7s ease; }
+.map-button:hover::before, .map-button:focus-visible::before { transform: translateX(120%); }
+.map-button-icon { position: relative; z-index: 1; width: 44px; aspect-ratio: 1; display: grid; place-items: center; border: 1px solid rgba(235,202,126,.34); border-radius: 50%; color: #f0cf77; background: radial-gradient(circle at 35% 28%,rgba(255,239,179,.2),rgba(150,101,28,.09)); box-shadow: inset 0 0 0 3px rgba(8,10,6,.18); }
+.map-button-icon svg { width: 23px; height: 23px; fill: none; stroke: currentColor; stroke-width: 1.65; }
+.map-button-label { position: relative; z-index: 1; min-width: 0; }
 .gold-button.is-disabled { opacity: .45; pointer-events: none; }
 
 .gift-section { padding: clamp(110px, 14vw, 160px) 0; color: #eee3c8; background: linear-gradient(rgba(28,32,20,.86),rgba(17,19,13,.96)),var(--section10-background) center 65%/cover; text-align: center; }
-.gift-shell { max-width: 780px; }
+.gift-shell { max-width: 780px; transform: translateY(clamp(-70px, -5vw, -36px)); }
 .gift-section .section-title { color: #d8b664; }
 .gift-body { max-width: 590px; margin: 12px auto 38px; line-height: 1.9; color: rgba(240,228,200,.66); }
-.qr-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 20px; }
-.qr-card { padding: 22px; border: 1px solid rgba(217,181,96,.35); background: rgba(7,9,5,.36); backdrop-filter: blur(8px); }
-.qr-card > strong { display: block; margin-bottom: 16px; font: 600 1rem/1 "Cormorant Garamond",serif; letter-spacing: .12em; color: #e2c879; }
-.qr-placeholder { aspect-ratio: 1; display: grid; place-content: center; justify-items: center; gap: 10px; color: rgba(238,226,198,.5); background: #e6ddca; border: 8px solid #fff; }
-.qr-crest { width: 70px; color: #9d7933; }
-.qr-placeholder span { color: #70664e; font-size: .7rem; }
-.qr-save { margin-top: 15px; padding: 10px 18px; border: 1px solid rgba(218,183,103,.3); background: transparent; color: rgba(237,222,184,.45); }
 
 .finale-section { min-height: 110svh; display: grid; place-items: center; padding: 120px 16px 80px; color: #f0e4c9; background: #0a0c08; text-align: center; }
 .finale-photo { position: absolute; inset: 0; background: linear-gradient(rgba(6,7,5,.68),rgba(6,7,5,.96)), url("/assets/pre-wedding-2000.webp") center 58%/cover; filter: saturate(.62); }
-.finale-content { position: relative; z-index: 3; width: min(670px, 100%); }
+.finale-content { position: absolute; z-index: 3; top: clamp(18px, 4svh, 44px); left: 16px; right: 16px; width: min(670px, calc(100% - 32px)); margin-inline: auto; }
 .finale-crest { width: 120px; color: #d6b35f; }
 .finale-section .section-title { color: #e0c16f; font-size: clamp(1.4rem, 5vw, 2.5rem); }
 .finale-content > p { max-width: 530px; margin: 12px auto 32px; line-height: 1.9; color: rgba(240,228,201,.7); }
-.share-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; }
-.share-grid button { min-height: 96px; display: grid; place-content: center; gap: 8px; padding: 10px 6px; border: 1px solid rgba(218,181,96,.3); background: rgba(16,18,12,.46); color: #e1c779; cursor: pointer; }
-.share-grid b { width: 34px; height: 34px; margin: auto; display: grid; place-items: center; border: 1px solid rgba(226,197,123,.42); border-radius: 50%; font-family: "Cormorant Garamond",serif; }
-.share-grid b img { width: 27px; height: 27px; display: block; object-fit: contain; }
-.share-grid span { font-size: .57rem; line-height: 1.5; }
-.name-logo--finale { width: min(420px, 78vw); height: 150px; margin: 38px auto 0; font-size: clamp(.72rem, 3.5vw, 1.3rem); }
+.name-logo--finale { position: absolute; z-index: 3; left: 0; right: 0; bottom: clamp(145px, 18svh, 180px); width: min(420px, 78vw); height: 150px; margin: 0 auto; font-size: clamp(.72rem, 3.5vw, 1.3rem); }
+.name-logo--finale .logo-name--bride { bottom: 13%; }
 .candle-row { position: absolute; z-index: 2; left: 0; right: 0; bottom: 64px; display: flex; justify-content: center; gap: clamp(18px, 6vw, 78px); opacity: .6; }
 .candle-row > i { position: relative; width: 6px; height: calc(45px + var(--i) * 4px); background: linear-gradient(#e2d3b0,#6e603f); transform: scaleY(0); transform-origin: bottom; }
-.candle-row b { position: absolute; left: 50%; top: -15px; width: 10px; height: 17px; border-radius: 50% 50% 45% 45%; background: #ffe4a0; box-shadow: 0 0 14px #f2b84e; transform: translateX(-50%); }
+.candle-row > i::after { content: ""; position: absolute; z-index: 1; left: 50%; top: -5px; width: 1px; height: 6px; background: #332514; transform: translateX(-50%); }
+.candle-row b { position: absolute; z-index: 2; left: 50%; top: -20px; width: 12px; height: 21px; border-radius: 52% 48% 58% 42% / 72% 68% 32% 28%; background: linear-gradient(180deg,#fff8ca 0%,#ffe078 38%,#f2a32e 74%,rgba(220,97,18,.82) 100%); box-shadow: 0 0 8px #fff0a0, 0 0 18px rgba(242,184,78,.88), 0 0 34px rgba(231,128,32,.42); transform: translateX(-50%); transform-origin: 50% 100%; animation: candleFlameFlicker .82s ease-in-out infinite alternate; animation-delay: calc(var(--i) * -.11s); }
+.candle-row b::before { content: ""; position: absolute; left: 50%; bottom: 2px; width: 5px; height: 11px; border-radius: 55% 45% 50% 50% / 70% 70% 30% 30%; background: linear-gradient(#fff,#fff4b2 52%,#ffb52e); transform: translateX(-50%); animation: candleFlameCore .58s ease-in-out infinite alternate; animation-delay: calc(var(--i) * -.08s); }
+.candle-row b::after { content: ""; position: absolute; z-index: -1; left: 50%; top: 54%; width: 42px; height: 42px; border-radius: 50%; background: radial-gradient(circle,rgba(255,211,105,.34),rgba(241,150,43,.14) 42%,transparent 72%); filter: blur(4px); transform: translate(-50%,-50%); animation: candleFireGlow 1.15s ease-in-out infinite alternate; animation-delay: calc(var(--i) * -.14s); }
 .finale-section footer { position: absolute; z-index: 3; left: 12px; right: 12px; bottom: 14px; display: grid; gap: 2px; font: 500 .68rem/1.5 "Cormorant Garamond",serif; color: rgba(238,225,194,.46); }
 .finale-section footer a { color: inherit; }
 .finale-section footer strong { font-weight: 600; color: rgba(238,225,194,.62); }
 
 @keyframes breathe { 0%, 100% { opacity: .36; transform: scaleY(.75); } 50% { opacity: 1; transform: scaleY(1); } }
 @keyframes promptZoom { 0%, 100% { opacity: .8; transform: scale(.92); } 50% { opacity: 1; transform: scale(1.08); } }
+@keyframes preloaderHeartGlow { 0%, 100% { opacity: .42; transform: scale(.82); } 50% { opacity: 1; transform: scale(1.18); } }
+@keyframes typingCursorBlink { 0%, 48% { opacity: 1; } 49%, 100% { opacity: .18; } }
+@keyframes candleFlameFlicker { 0% { transform: translateX(-50%) scale(.88,1.08) rotate(-5deg); filter: brightness(.92); } 32% { transform: translateX(-50%) scale(1.04,.94) rotate(3deg); filter: brightness(1.12); } 68% { transform: translateX(-50%) scale(.94,1.12) rotate(-2deg); filter: brightness(1.02); } 100% { transform: translateX(-50%) scale(1.08,.9) rotate(5deg); filter: brightness(1.18); } }
+@keyframes candleFlameCore { 0% { transform: translateX(-50%) scale(.82,1.08); opacity: .72; } 100% { transform: translateX(-50%) scale(1.12,.9); opacity: 1; } }
+@keyframes candleFireGlow { 0% { opacity: .42; transform: translate(-50%,-50%) scale(.78); } 100% { opacity: 1; transform: translate(-50%,-50%) scale(1.18); } }
 @keyframes sealHandTap { 0%, 12%, 100% { opacity: 0; transform: translate(14px,18px) rotate(-18deg) scale(.96); } 22%, 72% { opacity: .96; } 43% { transform: translate(0,0) rotate(-18deg) scale(.96); } 50% { transform: translate(-2px,-2px) rotate(-18deg) scale(.84); } 60%, 78% { transform: translate(0,0) rotate(-18deg) scale(.96); } 88% { opacity: 0; transform: translate(8px,10px) rotate(-18deg) scale(.96); } }
 @keyframes sealTapRipple { 0%, 42% { opacity: 0; transform: translate(-50%,-50%) scale(.2); } 50% { opacity: .9; transform: translate(-50%,-50%) scale(.45); } 68%, 100% { opacity: 0; transform: translate(-50%,-50%) scale(2.2); } }
 @keyframes scrollHandDown { 0%, 10%, 100% { opacity: 0; transform: translateY(-9px) scale(.94); } 24% { opacity: .95; } 68% { opacity: .95; transform: translateY(10px) scale(1); } 88% { opacity: 0; transform: translateY(18px) scale(.96); } }
@@ -467,10 +491,6 @@ button { color: inherit; font: inherit; }
   .map-corner--br { right: 13px; bottom: 13px; }
   .map-placeholder { min-height: 340px; }
   .gold-button { width: 100%; }
-  .qr-grid { grid-template-columns: 1fr; }
-  .qr-card { max-width: 330px; width: 100%; margin: auto; }
-  .share-grid { grid-template-columns: repeat(2,1fr); }
-  .share-grid button { min-height: 84px; }
 }
 
 @media (max-height: 650px) {
@@ -543,7 +563,6 @@ button { color: inherit; font: inherit; }
   .programme-date { font-size: clamp(1.06rem, 4.5vw, 1.16rem); }
   .story-hint { font-size: .72rem; }
   .story-caption h3 { font-size: clamp(.86rem, 3.6vw, 1rem); }
-  .share-grid span { font-size: .65rem; }
   .finale-section footer { font-size: .68rem; }
 }
 
@@ -556,7 +575,6 @@ button { color: inherit; font: inherit; }
   .story-caption p,
   .candle-copy span { font-size: .82rem; }
   .venue-meta { font-size: clamp(.96rem, 1.8vw, 1.12rem); }
-  .share-grid span { font-size: .68rem; }
 }
 
 @media (min-width: 1200px) {
