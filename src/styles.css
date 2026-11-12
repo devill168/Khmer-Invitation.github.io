@@ -221,7 +221,7 @@ button { color: inherit; font: inherit; }
 .parentage .relationship { display: block; margin-bottom: 6px; font-family: "Khmer OS Muol Light", sans-serif; font-size: clamp(1rem, 1.65vw, 1rem); font-weight: 400; line-height: 1.9; color: #cdb987; }
 .parentage p { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: center; gap: 0 .34em; margin: 0; font-family: "Khmer OS Battambang", sans-serif; font-size: clamp(.98rem, 1.85vw, 1.1rem); font-weight: 400; line-height: 2; color: rgba(247,239,220,.94); }
 .parentage small { font: inherit; font-size: .94em; color: rgba(221,205,169,.76); }
-.parentage strong { font-family: "Khmer OS Muol", sans-serif; font-size: 1.04em; font-weight: 500; color: #fff4d3; }
+.parentage strong { font-family: "Khmer OS Muol Light", "Moul", serif; font-size: 1.04em; font-weight: 400; color: #fff4d3; }
 .couple-amp { position: relative; display: grid; place-items: center; justify-self: center; align-self: center; width: clamp(66px, 7vw, 88px); aspect-ratio: 1; }
 .couple-amp::after { content: ""; position: absolute; width: 64%; aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle, rgba(246,220,138,.22), rgba(211,171,78,.06) 45%, transparent 72%); filter: blur(7px); animation: coupleButterflyGlow 3.6s ease-in-out infinite; }
 .couple-amp img { position: relative; z-index: 1; display: block; width: 82%; height: auto; filter: drop-shadow(0 5px 9px rgba(0,0,0,.34)) drop-shadow(0 0 8px rgba(239,206,116,.28)); transform-origin: 50% 55%; animation: coupleButterflyFlight 5.2s ease-in-out infinite; will-change: transform; }
