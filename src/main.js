@@ -276,7 +276,9 @@ document.querySelector("#app").innerHTML = `
               <p><small>${copy.en.and}</small><strong>${wedding.parents.groom.mother}</strong></p>
             </div>
           </article>
-          <div class="couple-amp" aria-hidden="true"><span>&amp;</span></div>
+          <div class="couple-amp" aria-hidden="true">
+            <img src="${kitPath}/elements/butterfly.svg" alt="" />
+          </div>
           <article class="person-card reveal-copy">
             <span class="person-role lang-km">កូនក្រមុំ</span><span class="person-role lang-en">Bride</span>
             <h3 class="person-name">${wedding.couple.bride.kh}</h3>
@@ -333,6 +335,7 @@ document.querySelector("#app").innerHTML = `
 
     <section class="story-section" id="story" aria-labelledby="story-title">
       <div class="story-sticky">
+        <div class="story-ambient" aria-hidden="true"></div>
         <div class="story-heading">
           <p class="story-kicker lang-km">${copy.km.storyKicker}</p><p class="story-kicker lang-en">${copy.en.storyKicker}</p>
           <h2 class="section-title lang-km" id="story-title">${copy.km.storyTitle}</h2><h2 class="section-title lang-en">${copy.en.storyTitle}</h2>
@@ -345,9 +348,11 @@ document.querySelector("#app").innerHTML = `
     <section class="candle-section" id="candle" aria-labelledby="candle-title">
       <div class="candle-photo" aria-hidden="true"></div>
       <div class="water-sheen" id="water-surface"></div>
-      <div class="candle-copy reveal-copy">
+      <div class="candle-copy candle-copy--title reveal-copy">
         <p class="lang-km">${copy.km.candleKicker}</p><p class="lang-en">${copy.en.candleKicker}</p>
         <h2 id="candle-title">${wedding.couple.groom.shortKh} <i>&amp;</i> ${wedding.couple.bride.shortKh}</h2>
+      </div>
+      <div class="candle-copy candle-copy--hint">
         <span class="lang-km">${copy.km.candleHint}</span><span class="lang-en">${copy.en.candleHint}</span>
       </div>
       <div class="lotus-lantern" aria-hidden="true"><i></i><b></b></div>
@@ -729,7 +734,19 @@ function initMotion() {
   });
   const track = document.querySelector(".story-track");
   const story = document.querySelector(".story-section");
+  const storySticky = story.querySelector(".story-sticky");
+  const storyAmbient = story.querySelector(".story-ambient");
   gsap.to(track, { x: () => -(track.scrollWidth - innerWidth), ease: "none", scrollTrigger: { trigger: story, start: "top top", end: "bottom bottom", scrub: 1, invalidateOnRefresh: true } });
+  gsap.timeline({ scrollTrigger: { trigger: story, start: "top top", end: "bottom bottom", scrub: 1, invalidateOnRefresh: true } })
+    .to(storySticky, { backgroundColor: "#4a4a22", duration: 1, ease: "none" })
+    .to(storySticky, { backgroundColor: "#4a2a1a", duration: 1, ease: "none" })
+    .to(storySticky, { backgroundColor: "#120f0b", duration: 1, ease: "none" });
+  gsap.timeline({ scrollTrigger: { trigger: story, start: "top top", end: "bottom bottom", scrub: 1, invalidateOnRefresh: true } })
+    .fromTo(storyAmbient,
+      { xPercent: -7, scale: 1.02, opacity: .5 },
+      { xPercent: 2, scale: 1.1, opacity: .82, duration: 1.5, ease: "none" })
+    .to(storyAmbient, { xPercent: 8, scale: 1.16, opacity: .2, duration: 1.5, ease: "none" });
+  gsap.from(".candle-copy--hint", { y: 18, opacity: 0, duration: .9, ease: "power3.out", scrollTrigger: { trigger: ".candle-section", start: "top 78%", once: true } });
   gsap.to(".candle-photo", { yPercent: 3, ease: "none", scrollTrigger: { trigger: ".candle-section", start: "top bottom", end: "bottom top", scrub: true } });
   gsap.to(".candle-row > i", { scaleY: 1, duration: .45, stagger: .14, ease: "back.out(1.7)", scrollTrigger: { trigger: ".finale-section", start: "top 55%", once: true } });
   ScrollTrigger.refresh();

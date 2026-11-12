@@ -213,8 +213,8 @@ button { color: inherit; font: inherit; }
 .person-card::before, .person-card::after { content: ""; position: absolute; left: 50%; width: 56px; height: 1px; transform: translateX(-50%); background: linear-gradient(90deg, transparent, #e7c26d, transparent); opacity: .8; }
 .person-card::before { top: 14px; }
 .person-card::after { bottom: 14px; }
-.person-role { display: inline-grid; place-items: center; min-height: 30px; margin: 0 auto 5px; padding: .3em 1.15em .18em; border: 1px solid rgba(226,190,105,.3); border-radius: 999px; font-family: "Moul", serif; font-size: clamp(.68rem, 1.3vw, .78rem); font-weight: 400; line-height: 1.9; color: #e5cc8e; background: rgba(213,169,71,.08); text-shadow: 0 2px 10px rgba(0,0,0,.7); }
-.person-name { margin: 7px 0 0; padding: .34em .15em .16em; font-family: "Khmer OS Muol Light", "Moul", serif; font-size: clamp(1.28rem, 3.8vw, 1.92rem); font-weight: 400; line-height: 2; background-image: linear-gradient(100deg, #8b5b18 0%, #d5a744 16%, #fff1b3 32%, #c58c2c 48%, #ffeaa0 64%, #a96e1f 82%, #f7d97f 100%); background-size: 300% 100%; background-position: 0% center; background-clip: text; -webkit-background-clip: text; color: transparent; -webkit-text-fill-color: transparent; filter: drop-shadow(0 2px 8px rgba(0,0,0,.38)); animation: coupleNameGradient 8s linear infinite; will-change: background-position; }
+.person-role { display: inline-grid; place-items: center; min-height: 30px; margin: 0 auto 5px; padding: .3em 1.15em .18em; border: 1px solid rgba(226,190,105,.3); border-radius: 999px; font-family: "Khmer OS Muol Light", serif; font-size: clamp(.68rem, 1.3vw, .78rem); font-weight: 400; line-height: 1.9; color: #e5cc8e; background: rgba(213,169,71,.08); text-shadow: 0 2px 10px rgba(0,0,0,.7); }
+.person-name { margin: 7px 0 0; padding: .34em .15em .16em; font-family: "Khmer OS Muol Light", "Moul", serif; font-size: clamp(1.28rem, 3.8vw, 1.92rem); font-weight: 400; line-height: 2; background-image: linear-gradient(100deg, #8b5b18 0%, #d5a744 16%, #fff1b3 32%, #c58c2c 48%, #ffeaa0 64%, #a96e1f 82%, #f7d97f 100%); background-size: 300% 100%; background-position: 0% center; background-clip: text; -webkit-background-clip: text; color: transparent; -webkit-text-fill-color: transparent; filter: drop-shadow(0 2px 8px rgba(0,0,0,.38)); animation: coupleNameGradient 12s linear infinite; will-change: background-position; }
 .person-name-en { display: block; margin-top: -3px; font: 600 clamp(.82rem, 1.6vw, 1rem)/1.25 "Cormorant Garamond", serif; letter-spacing: .17em; color: #f0e1be; text-transform: uppercase; text-shadow: 0 2px 12px rgba(0,0,0,.6); }
 .parentage { position: relative; display: grid; gap: 4px; margin-top: 24px; padding-top: 20px; color: rgba(247,238,216,.9); }
 .parentage::before { content: ""; position: absolute; top: 0; left: 20%; right: 20%; height: 1px; background: linear-gradient(90deg, transparent, rgba(226,191,108,.58), transparent); }
@@ -222,8 +222,9 @@ button { color: inherit; font: inherit; }
 .parentage p { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: center; gap: 0 .34em; margin: 0; font-family: "Khmer OS Battambang", sans-serif; font-size: clamp(.98rem, 1.85vw, 1.1rem); font-weight: 400; line-height: 2; color: rgba(247,239,220,.94); }
 .parentage small { font: inherit; font-size: .94em; color: rgba(221,205,169,.76); }
 .parentage strong { font-family: "Khmer OS Muol", sans-serif; font-size: 1.04em; font-weight: 500; color: #fff4d3; }
-.couple-amp { position: relative; display: grid; place-items: center; width: clamp(50px, 6vw, 68px); aspect-ratio: 1; border: 1px solid rgba(224,185,92,.35); border-radius: 50%; background: rgba(19,21,13,.72); box-shadow: 0 0 0 6px rgba(211,171,78,.035), 0 10px 30px rgba(0,0,0,.26); }
-.couple-amp span { padding-right: .05em; font: 400 clamp(2.3rem, 5vw, 3.5rem)/1 "Pinyon Script", cursive; background-image: linear-gradient(100deg,#9c6922,#f6dc8a,#fff4bd,#c18a2d,#f6dc8a); background-size: 260% 100%; background-clip: text; -webkit-background-clip: text; color: transparent; -webkit-text-fill-color: transparent; animation: coupleNameGradient 8s linear infinite reverse; }
+.couple-amp { position: relative; display: grid; place-items: center; justify-self: center; align-self: center; width: clamp(66px, 7vw, 88px); aspect-ratio: 1; }
+.couple-amp::after { content: ""; position: absolute; width: 64%; aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle, rgba(246,220,138,.22), rgba(211,171,78,.06) 45%, transparent 72%); filter: blur(7px); animation: coupleButterflyGlow 3.6s ease-in-out infinite; }
+.couple-amp img { position: relative; z-index: 1; display: block; width: 82%; height: auto; filter: drop-shadow(0 5px 9px rgba(0,0,0,.34)) drop-shadow(0 0 8px rgba(239,206,116,.28)); transform-origin: 50% 55%; animation: coupleButterflyFlight 5.2s ease-in-out infinite; will-change: transform; }
 
 .countdown-section { min-height: 72svh; display: grid; place-items: center; padding: 120px 16px; color: #efe4ca; background: linear-gradient(rgba(25,29,18,.9), rgba(17,19,13,.96)), url("/assets/pre-wedding-2000.webp") center 82%/cover; }
 .blessing-marquee { position: absolute; inset: 16% 0 auto; overflow: hidden; transform: rotate(-4deg); opacity: .13; }
@@ -267,13 +268,14 @@ button { color: inherit; font: inherit; }
 .programme-copy p { margin: 5px 0 0; padding: .2em 0; line-height: 1.8; color: #292719; }
 
 .story-section { position: relative; height: 520svh; background: #191d12; color: var(--cream); }
-.story-sticky { position: sticky; top: 0; height: 100svh; overflow: hidden; background: linear-gradient(145deg,#384027,#11130d 75%); }
-.story-sticky::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(90deg,rgba(10,12,8,.8),transparent 22%,transparent 85%,rgba(10,12,8,.6)); }
+.story-sticky { position: sticky; top: 0; height: 100svh; overflow: hidden; isolation: isolate; background-color: #191d12; background-image: radial-gradient(circle at 18% 18%, rgba(226,199,119,.14), transparent 36%), linear-gradient(145deg,rgba(56,64,39,.66),rgba(17,19,13,.38) 75%); }
+.story-ambient { position: absolute; z-index: 0; inset: -22%; pointer-events: none; opacity: .5; background: radial-gradient(circle at 28% 43%, rgba(227,196,112,.19), transparent 30%), radial-gradient(circle at 74% 42%, rgba(180,87,45,.18), transparent 32%), linear-gradient(115deg, transparent 28%, rgba(236,208,132,.07) 50%, transparent 72%); filter: blur(12px); transform-origin: center; will-change: transform, opacity; }
+.story-sticky::after { content: ""; position: absolute; z-index: 4; inset: 0; pointer-events: none; background: linear-gradient(90deg,rgba(10,12,8,.8),transparent 22%,transparent 85%,rgba(10,12,8,.6)); }
 .story-heading { position: absolute; z-index: 5; left: clamp(20px, 6vw, 80px); top: clamp(95px, 14svh, 150px); max-width: 340px; }
 .story-heading .section-title { padding-left: 0; color: #dfc178; }
 .story-kicker, .story-hint { margin: 0; line-height: 1.8; color: rgba(240,230,207,.64); }
 .story-hint { margin-top: 8px; font-size: .7rem; }
-.story-track { height: 100%; display: flex; align-items: center; gap: clamp(20px, 4vw, 52px); padding: 22svh 15vw 4svh 43vw; width: max-content; will-change: transform; }
+.story-track { position: relative; z-index: 1; height: 100%; display: flex; align-items: center; gap: clamp(20px, 4vw, 52px); padding: 22svh 15vw 4svh 43vw; width: max-content; will-change: transform; }
 .story-card { position: relative; width: min(68vw, 470px); height: min(62svh, 570px); flex: 0 0 auto; transform: rotate(var(--tilt, -1deg)); }
 .story-card:nth-child(even) { --tilt: 1.4deg; margin-top: 7svh; }
 .story-photo { position: absolute; inset: 0; background: linear-gradient(transparent 45%,rgba(9,10,7,.86)), var(--story-image) var(--story-position)/cover; border: 8px solid #e4dac4; box-shadow: 0 25px 55px rgba(0,0,0,.4); }
@@ -287,11 +289,42 @@ button { color: inherit; font: inherit; }
 .candle-section { position: relative; min-height: 100svh; display: grid; place-items: center; overflow: hidden; color: #f1e5c9; background: #080a06; cursor: crosshair; }
 .candle-photo { position: absolute; inset: -14% 0; background-image: linear-gradient(rgba(7,8,5,.34),rgba(7,8,5,.7)), url("/assets/pre-wedding-2000.webp"); background-position: center, center 52%; background-size: cover, cover; background-repeat: no-repeat; filter: saturate(.65) brightness(.76); transform: scale(1.02); }
 .water-sheen { position: absolute; inset: 52% 0 0; background: repeating-radial-gradient(ellipse at 50% 0, transparent 0 10px, rgba(222,191,120,.045) 12px 13px, transparent 15px 26px); mask-image: linear-gradient(transparent,#000 35%); }
-.candle-copy { position: relative; z-index: 3; text-align: center; width: min(620px, calc(100% - 36px)); }
-.candle-copy > p { margin: 0; color: #c9ab69; }
-.candle-copy h2 { margin: 8px 0 20px; padding: .3em .2em; font-family: "Moulpali", serif; font-size: clamp(1.2rem, 5vw, 2.3rem); font-weight: 400; line-height: 1.8; color: #efd68e; }
+.candle-copy { position: absolute; z-index: 3; left: 0; right: 0; width: min(620px, calc(100% - 36px)); margin-inline: auto; text-align: center; }
+.candle-copy--title { top: clamp(76px, 12svh, 128px); }
+.candle-copy--hint { bottom: clamp(40px, 7svh, 72px); }
+.candle-copy > p { margin: 0; color: #c9ab69; font-family: "Khmer OS Battambang", sans-serif; }
+.candle-copy h2 { margin: 8px 0 0; padding: .3em .2em; font-family: "Khmer OS Muol Light", serif; font-size: clamp(1.2rem, 5vw, 2.3rem); font-weight: 400; line-height: 1.8; color: #efd68e; }
 .candle-copy h2 i { font: 400 1.5em/1 "Pinyon Script", cursive; }
-.candle-copy span { font-size: .72rem; line-height: 1.8; color: rgba(241,229,201,.62); }
+.candle-copy--hint span { display: inline-block; font-family: "Khmer OS Battambang", sans-serif; font-size: .72rem; line-height: 1.8; color: rgba(241,229,201,.72); text-shadow: 0 2px 12px rgba(0,0,0,.82); }
+.story-heading .section-title,
+.story-caption h3,
+.story-number,
+.candle-copy > p,
+.candle-copy h2 {
+  background-image: linear-gradient(105deg, #9c7124 0%, #ddb85f 18%, #fff1b5 35%, #c58a2d 52%, #ffe49a 68%, #9f6824 84%, #e2bb62 100%);
+  background-size: 280% 100%;
+  background-position: 0% center;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  animation: sectionTextFoilSweep 12s linear infinite;
+  will-change: background-position;
+}
+.story-kicker,
+.story-hint,
+.story-caption p,
+.candle-copy--hint span {
+  background-image: linear-gradient(105deg, rgba(233,210,151,.58) 0%, #f8e6b0 28%, #b98b3e 50%, #fff0bd 72%, rgba(233,210,151,.58) 100%);
+  background-size: 260% 100%;
+  background-position: 0% center;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  animation: sectionTextFoilSweep 15s linear infinite reverse;
+  will-change: background-position;
+}
 .lotus-lantern { position: absolute; z-index: 4; left: 50%; top: 72%; width: 54px; height: 34px; transform: translate(-50%,-50%); opacity: 0; transition: opacity .5s ease; filter: drop-shadow(0 0 18px #e7b651); }
 .lotus-lantern.is-floating { opacity: 1; animation: lanternFloat 5s ease-in-out infinite; }
 .lotus-lantern i, .lotus-lantern::before, .lotus-lantern::after { content: ""; position: absolute; left: 50%; bottom: 0; width: 26px; height: 22px; border-radius: 80% 10% 80% 10%; background: linear-gradient(135deg,#7b531c,#f5d681); transform-origin: bottom center; }
@@ -384,6 +417,15 @@ button { color: inherit; font: inherit; }
 @keyframes lanternFloat { 0%,100% { transform: translate(-50%,-50%) translateY(0) rotate(-2deg); } 50% { transform: translate(-50%,-50%) translateY(-14px) rotate(3deg); } }
 @keyframes formalNameFoilSweep { from { background-position: 0% center; } to { background-position: 260% center; } }
 @keyframes coupleNameGradient { from { background-position: 0% center; } to { background-position: 300% center; } }
+@keyframes sectionTextFoilSweep { from { background-position: 0% center; } to { background-position: 280% center; } }
+@keyframes coupleButterflyFlight {
+  0%, 100% { transform: translate3d(-8px, 5px, 0) rotate(-8deg) scale(.94, .88); }
+  18% { transform: translate3d(1px, -7px, 0) rotate(-2deg) scale(1.02, 1); }
+  38% { transform: translate3d(9px, -2px, 0) rotate(7deg) scale(.9, .96); }
+  58% { transform: translate3d(6px, 7px, 0) rotate(4deg) scale(1.04, .9); }
+  78% { transform: translate3d(-5px, -5px, 0) rotate(-6deg) scale(.92, 1); }
+}
+@keyframes coupleButterflyGlow { 0%, 100% { opacity: .45; transform: scale(.78); } 50% { opacity: .95; transform: scale(1.14); } }
 
 @media (max-width: 680px) {
   .cover-photo { background-position: 44% 56%; }
@@ -465,7 +507,8 @@ button { color: inherit; font: inherit; }
   .seal-hand::before { display: none; }
   .scroll-hand { animation: none !important; opacity: .9; transform: none; }
   .formal-names strong { animation: none !important; background-position: 50% center; }
-  .person-name, .couple-amp span { animation: none !important; background-position: 50% center; }
+  .person-name, .couple-amp img, .couple-amp::after { animation: none !important; background-position: 50% center; }
+  .story-heading .section-title, .story-caption h3, .story-number, .story-kicker, .story-hint, .story-caption p, .candle-copy > p, .candle-copy h2, .candle-copy--hint span { animation: none !important; background-position: 50% center; }
 }
 
 /* Responsive typography: phone readability and comfortable laptop scaling. */
