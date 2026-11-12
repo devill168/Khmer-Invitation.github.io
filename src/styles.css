@@ -218,10 +218,10 @@ button { color: inherit; font: inherit; }
 .person-name-en { display: block; margin-top: -3px; font: 600 clamp(.82rem, 1.6vw, 1rem)/1.25 "Cormorant Garamond", serif; letter-spacing: .17em; color: #f0e1be; text-transform: uppercase; text-shadow: 0 2px 12px rgba(0,0,0,.6); }
 .parentage { position: relative; display: grid; gap: 4px; margin-top: 24px; padding-top: 20px; color: rgba(247,238,216,.9); }
 .parentage::before { content: ""; position: absolute; top: 0; left: 20%; right: 20%; height: 1px; background: linear-gradient(90deg, transparent, rgba(226,191,108,.58), transparent); }
-.parentage .relationship { display: block; margin-bottom: 6px; font-family: "Kantumruy Pro", sans-serif; font-size: clamp(.88rem, 1.65vw, .98rem); font-weight: 400; line-height: 1.9; color: #cdb987; }
-.parentage p { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: center; gap: 0 .34em; margin: 0; font-family: "Kantumruy Pro", sans-serif; font-size: clamp(.98rem, 1.85vw, 1.1rem); font-weight: 400; line-height: 2; color: rgba(247,239,220,.94); }
+.parentage .relationship { display: block; margin-bottom: 6px; font-family: "Khmer OS Muol Light", sans-serif; font-size: clamp(1rem, 1.65vw, 1rem); font-weight: 400; line-height: 1.9; color: #cdb987; }
+.parentage p { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: center; gap: 0 .34em; margin: 0; font-family: "Khmer OS Battambang", sans-serif; font-size: clamp(.98rem, 1.85vw, 1.1rem); font-weight: 400; line-height: 2; color: rgba(247,239,220,.94); }
 .parentage small { font: inherit; font-size: .94em; color: rgba(221,205,169,.76); }
-.parentage strong { font-family: "Kantumruy Pro", sans-serif; font-size: 1.04em; font-weight: 500; color: #fff4d3; }
+.parentage strong { font-family: "Khmer OS Muol", sans-serif; font-size: 1.04em; font-weight: 500; color: #fff4d3; }
 .couple-amp { position: relative; display: grid; place-items: center; width: clamp(50px, 6vw, 68px); aspect-ratio: 1; border: 1px solid rgba(224,185,92,.35); border-radius: 50%; background: rgba(19,21,13,.72); box-shadow: 0 0 0 6px rgba(211,171,78,.035), 0 10px 30px rgba(0,0,0,.26); }
 .couple-amp span { padding-right: .05em; font: 400 clamp(2.3rem, 5vw, 3.5rem)/1 "Pinyon Script", cursive; background-image: linear-gradient(100deg,#9c6922,#f6dc8a,#fff4bd,#c18a2d,#f6dc8a); background-size: 260% 100%; background-clip: text; -webkit-background-clip: text; color: transparent; -webkit-text-fill-color: transparent; animation: coupleNameGradient 8s linear infinite reverse; }
 
@@ -236,7 +236,14 @@ button { color: inherit; font: inherit; }
 .countdown-grid > div + div::before { content: ""; position: absolute; left: 0; top: 12%; bottom: 12%; width: 1px; background: rgba(218,180,96,.3); }
 .countdown-grid strong { font: 500 clamp(1.65rem, 7vw, 3.4rem)/1 "Cormorant Garamond", serif; color: #f1e5c8; }
 .countdown-grid span { font-size: clamp(.58rem, 2.2vw, .75rem); color: #c9ad70; }
-.countdown-date { margin: 0; line-height: 1.8; color: rgba(241,229,200,.65); }
+.countdown-date {
+  padding-top:20px;
+  margin: 0;
+  font-family: "Khmer OS Battambang", serif;
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #fef2cc;
+}
 
 .programme-section { position: relative; overflow: hidden; padding: clamp(110px, 14vw, 170px) 0; background: radial-gradient(circle at 50% 17%, rgba(201,159,73,.13), transparent 30%), linear-gradient(180deg, #f4ecdc, #e9dcc4); }
 .programme-section::before { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .23; background-image: url("/assets/khmer-invite-starter-kit/textures/paper-cream.webp"); background-size: 720px; mix-blend-mode: multiply; }
@@ -253,7 +260,7 @@ button { color: inherit; font: inherit; }
 .programme-icon { position: relative; display: grid; place-items: center; width: 76px; aspect-ratio: 1; border-radius: 22px; background: linear-gradient(145deg, #343c23, #171b11); box-shadow: inset 0 0 0 1px rgba(244,218,157,.15), 0 10px 24px rgba(45,47,29,.22); }
 .programme-icon::before { content: ""; position: absolute; inset: 8px; border: 1px solid rgba(221,184,102,.22); border-radius: 16px; }
 .programme-icon img { position: relative; z-index: 1; width: 58px; height: 58px; object-fit: contain; filter: drop-shadow(0 3px 4px rgba(0,0,0,.2)); }
-.programme-step { position: absolute; z-index: 2; right: -8px; top: -8px; display: grid; place-items: center; width: 27px; aspect-ratio: 1; border-radius: 50%; border: 2px solid #eee3cf; background: #b17d2c; color: #fff7e7; font: 600 .63rem/1 "Cormorant Garamond", serif; box-shadow: 0 4px 10px rgba(82,54,12,.2); }
+.programme-step { position: absolute; z-index: 2; right: -8px; top: -8px; display: grid; place-items: center; width: 27px; aspect-ratio: 1; border-radius: 50%; border: 2px solid #eee3cf; background: #b17d2c; color: #fff7e7; font: 600 .63rem/1 "Khmer OS Battambang", serif; box-shadow: 0 4px 10px rgba(82,54,12,.2); }
 .programme-copy { position: relative; z-index: 1; }
 .programme-copy time { display: block; font: 600 .78rem/1.5 "Cormorant Garamond", serif; letter-spacing: .09em; color: #8b6928; }
 .programme-copy time.lang-km { font-family: "Khmer OS Muol Light", "Moul", serif; font-weight: 400; line-height: 1.8; letter-spacing: 0; }
@@ -488,8 +495,8 @@ button { color: inherit; font: inherit; }
   .candle-copy span { font-size: .76rem; }
   .venue-meta { font-size: clamp(.86rem, 3.6vw, .98rem); }
   .countdown-grid span { font-size: .6rem; }
-  .programme-copy time { font-size: .75rem; }
-  .programme-copy p { font-size: .88rem; line-height: 1.75; }
+  .programme-copy time { font-size: 1rem; }
+  .programme-copy p { font-size: 1rem; line-height: 1.75; }
   .programme-date { font-size: clamp(1.06rem, 4.5vw, 1.16rem); }
   .story-hint { font-size: .72rem; }
   .story-caption h3 { font-size: clamp(.86rem, 3.6vw, 1rem); }

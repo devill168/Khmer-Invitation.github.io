@@ -268,7 +268,7 @@ document.querySelector("#app").innerHTML = `
             <div class="parentage lang-km">
               <span class="relationship">${copy.km.sonOf}</span>
               <p><small>លោក</small><strong>${wedding.parents.groom.father}</strong></p>
-              <p><small>${copy.km.and}លោកស្រី</small><strong>${wedding.parents.groom.mother}</strong></p>
+              <p><small>${copy.km.and}អ្នកស្រី</small><strong>${wedding.parents.groom.mother}</strong></p>
             </div>
             <div class="parentage lang-en">
               <span class="relationship">${copy.en.sonOf}</span>
@@ -284,7 +284,7 @@ document.querySelector("#app").innerHTML = `
             <div class="parentage lang-km">
               <span class="relationship">${copy.km.daughterOf}</span>
               <p><small>លោក</small><strong>${wedding.parents.bride.father}</strong></p>
-              <p><small>${copy.km.and}លោកស្រី</small><strong>${wedding.parents.bride.mother}</strong></p>
+              <p><small>${copy.km.and}អ្នកស្រី</small><strong>${wedding.parents.bride.mother}</strong></p>
             </div>
             <div class="parentage lang-en">
               <span class="relationship">${copy.en.daughterOf}</span>
@@ -308,7 +308,7 @@ document.querySelector("#app").innerHTML = `
           <div><strong data-count="minutes">––</strong><span class="lang-km">${copy.km.minutes}</span><span class="lang-en">${copy.en.minutes}</span></div>
           <div><strong data-count="seconds">––</strong><span class="lang-km">${copy.km.seconds}</span><span class="lang-en">${copy.en.seconds}</span></div>
         </div>
-        <p class="countdown-date">${wedding.date.weekdayKh} · ${wedding.date.dayKh} ${wedding.date.monthKh} ${wedding.date.yearKh} · ${wedding.date.timeKh}</p>
+        <p class="countdown-date">${wedding.date.weekdayKh}  ${wedding.date.dayKh} ${wedding.date.monthKh} ${wedding.date.yearKh} <br/> ${wedding.date.timeKh}</p>
       </div>
     </section>
 
