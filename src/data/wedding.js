@@ -7,7 +7,7 @@ export const wedding = {
   },
   parents: {
     groom: { father: "ជា សែម", mother: "ហ៊ឹម សុធីតា" },
-    bride: { father: "ម៉ាត់ អុីមរ៉ន", mother: "លី ម៉ារីយ៉ា" },
+    bride: { father: "ម៉ាត់ អ៊ីមរ៉ន", mother: "លី ម៉ារីយ៉ា" },
   },
   date: {
     iso: "2027-01-11T17:30:00+07:00",
