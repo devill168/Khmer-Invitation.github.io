@@ -130,7 +130,8 @@ document.querySelector("#app").innerHTML = `
           <path class="preloader-heart-core" d="M50 78 23 53C7 38 15 18 33 18c8 0 14 5 17 11 3-6 9-11 17-11 18 0 26 20 10 35L50 78Z" />
         </svg>
       </div>
-      <div class="preloader-count" id="preloader-count" aria-hidden="true">០</div>
+      <div class="preloader-count" id="preloader-count" aria-hidden="true">០%</div>
+      <p class="preloader-message">ស្នេហាយើងផ្តើមពី</p>
     </div>
     <div class="preloader-curtain" aria-hidden="true"></div>
   </div>
@@ -149,13 +150,20 @@ document.querySelector("#app").innerHTML = `
             <p class="english-title">The Wedding Invitation</p>
           </header>
           <div class="envelope-back paper-dark"></div>
-          <div class="inner-card paper-cream">
-            <div class="card-border"></div>
+          <div class="inner-card paper-cream" aria-hidden="true">
+            <div class="card-border">
+              <div class="card-information">
+                <p class="card-info-kicker lang-km">${copy.km.respect}</p>
+                <p class="card-info-kicker lang-en">${copy.en.respect}</p>
+                <p class="card-info-date lang-km">ថ្ងៃ${wedding.date.weekdayKh} ទី${wedding.date.dayKh} ខែ${wedding.date.monthKh} ឆ្នាំ${wedding.date.yearKh}</p>
+                <p class="card-info-date lang-en">${wedding.date.weekdayEn}, ${wedding.date.dayEn} ${wedding.date.monthEn} ${wedding.date.yearEn}</p>
+                <p class="card-info-meta lang-km">${wedding.date.timeKh} · ${wedding.venue.nameKh} (${wedding.venue.buildingKh})</p>
+                <p class="card-info-meta lang-en">${wedding.date.timeEn} · ${wedding.venue.nameEn} (${wedding.venue.buildingEn})</p>
+              </div>
+            </div>
             ${decorativeCorner("card-corner card-corner--tl")}
             ${decorativeCorner("card-corner card-corner--br")}
             ${nameLogo("name-logo--card")}
-            <p class="card-whisper lang-km">${copy.km.respect}</p>
-            <p class="card-whisper lang-en">${copy.en.respect}</p>
           </div>
 
           <div class="pocket">
@@ -450,17 +458,19 @@ document.querySelector("#app").innerHTML = `
 
     <section class="finale-section" id="finale" aria-labelledby="thanks-title" style="--finale-photo:url('${wedding.assets.finale}')">
       <div class="finale-photo" aria-hidden="true"></div>
-      <div class="candle-row" aria-hidden="true">${Array(7).fill(0).map((_, i) => `<i style="--i:${i}"><b></b></i>`).join("")}</div>
       <div class="finale-content reveal-copy">
         ${crest("finale-crest")}
         <h2 class="section-title lang-km" id="thanks-title">${copy.km.thanks}</h2><h2 class="section-title lang-en">${copy.en.thanks}</h2>
-        <p class="lang-km">${copy.km.thanksBody}</p><p class="lang-en">${copy.en.thanksBody}</p>
+        <p class="thanks-body lang-km">${copy.km.thanksBody}</p><p class="thanks-body lang-en">${copy.en.thanksBody}</p>
       </div>
-      ${nameLogo("name-logo--finale reveal-copy")}
-      <footer class="site-credits">
-        <span>Developed by Saky Unfake.</span>
-        <span>Design inspired by Someth Phay.</span>
-      </footer>
+      <div class="finale-signoff">
+        ${nameLogo("name-logo--finale reveal-copy")}
+        <div class="candle-row" aria-hidden="true">${Array(7).fill(0).map((_, i) => `<i style="--i:${i}"><b></b></i>`).join("")}</div>
+        <footer class="site-credits">
+          <span>Developed by Saky Unfake.</span>
+          <span>Design inspired by Someth Phay.</span>
+        </footer>
+      </div>
     </section>
 
     ${wedding.assets.music ? `<audio id="invitation-music" src="${wedding.assets.music}" preload="auto" loop></audio>` : ""}
@@ -524,7 +534,7 @@ function initPreloader() {
 
   const renderProgress = () => {
     const value = Math.max(0, Math.min(100, progress.value));
-    count.textContent = toKhmerNumber(value);
+    count.textContent = `${toKhmerNumber(value)}%`;
     gsap.set(heartProgress, { strokeDashoffset: pathLength * (1 - value / 100) });
   };
 
@@ -927,6 +937,7 @@ function openInvitation() {
   document.body.classList.add("is-opening");
   const seal = document.querySelector(".wax-seal");
   const card = document.querySelector(".inner-card");
+  const cardRevealContent = card.querySelectorAll(".name-logo--card, .card-information");
   const pocket = document.querySelector(".pocket");
   const prompt = document.querySelector(".open-prompt");
   const effects = document.querySelector(".opening-effects");
@@ -934,8 +945,15 @@ function openInvitation() {
   const goldParticles = gsap.utils.toArray(".opening-gold-particle");
   const tl = gsap.timeline();
 
+  card.classList.add("is-revealed");
+  card.setAttribute("aria-hidden", "false");
+
   if (reducedMotion) {
-    tl.set([envelopeHeading, seal, flap, card, pocket], { opacity: 0 }).to(envelopeScreen, { opacity: 0, duration: .35, onComplete: showCover });
+    tl.set([envelopeHeading, seal, flap, pocket], { opacity: 0 })
+      .set(card, { y: "-36%", opacity: 1 })
+      .set(cardRevealContent, { autoAlpha: 1 })
+      .to(card, { opacity: 1, duration: 1.4 })
+      .to(envelopeScreen, { opacity: 0, duration: .35, onComplete: showCover });
     return;
   }
 
@@ -955,14 +973,15 @@ function openInvitation() {
     .to(envelopeHeading, { opacity: 0, duration: .4, ease: "power2.out" }, .4)
     .to(envelopeStage, { scale: 1, y: 0, filter: "drop-shadow(0 22px 28px rgba(0,0,0,.26))", duration: .58, ease: "power2.out" }, .3)
     .to(flap, { rotateX: -180, duration: 1.02, ease: "power3.inOut", onUpdate() { if (Math.abs(gsap.getProperty(flap, "rotateX")) > 90) flap.classList.add("is-behind"); } }, .48)
+    .fromTo(cardRevealContent, { y: 10, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: .55, stagger: .08, ease: "power2.out" }, 1.02)
     .fromTo(card, { y: "3%", scale: .955, opacity: .72 }, { y: "-58%", scale: 1.025, opacity: 1, duration: 1.08, ease: "power3.out" }, 1.14)
     .to(card, { y: "-66%", scale: 1.08, filter: "drop-shadow(0 32px 38px rgba(0,0,0,.24))", duration: .3, ease: "power2.out" }, 1.88)
     .to(card, { y: "-36%", scale: 1.025, filter: "drop-shadow(0 20px 26px rgba(0,0,0,.2))", duration: .62, ease: "back.out(1.35)" }, 2.1)
     .to([flap, pocket], { opacity: 0, duration: .46, ease: "power2.in" }, 2.42)
-    .call(showCover, [.45], 2.48)
-    .to(envelopeScreen, { opacity: 0, duration: .78, ease: "power2.inOut" }, 2.48)
-    .to(card, { scale: 1.08, opacity: 0, duration: .58, ease: "power2.in" }, 2.55)
-    .set(effects, { opacity: 0 }, 3.3);
+    .call(showCover, [.45], 3.25)
+    .to(envelopeScreen, { opacity: 0, duration: .78, ease: "power2.inOut" }, 3.25)
+    .to(card, { scale: 1.08, opacity: 0, duration: .58, ease: "power2.in" }, 3.32)
+    .set(effects, { opacity: 0 }, 4.08);
 }
 
 openButton.addEventListener("click", openInvitation);

@@ -22,7 +22,7 @@ export const wedding = {
     lunarKh: "ថ្ងៃចន្ទ ៤កើត ខែបុស្ស ឆ្នាំមមី អដ្ឋស័ក ព.ស.២៥៧០",
     lunarEn: "Lunar date",
     timeKh: "ម៉ោង ៥:០០ ល្ងាច",
-    timeValueKh: "៥:00 ល្ងាច",
+    timeValueKh: "៥:០០ ល្ងាច",
     timeEn: "Time: 5:00 PM",
     timeValueEn: "5:00 PM",
   },

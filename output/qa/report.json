@@ -19,15 +19,15 @@
       "visible": true,
       "rect": {
         "top": 0,
-        "bottom": 672,
+        "bottom": 568,
         "width": 320,
-        "height": 672
+        "height": 568
       },
       "content": {
-        "top": 64.265625,
-        "bottom": 643.71875,
+        "top": 86.015625,
+        "bottom": 517.96875,
         "width": 275.21875,
-        "height": 579.453125
+        "height": 431.953125
       },
       "viewport": {
         "width": 320,
@@ -62,10 +62,10 @@
         "height": 844
       },
       "content": {
-        "top": 123.65625,
-        "bottom": 778.765625,
+        "top": 194.359375,
+        "bottom": 708.0625,
         "width": 345.21875,
-        "height": 655.109375
+        "height": 513.703125
       },
       "viewport": {
         "width": 390,
@@ -92,18 +92,18 @@
       "overflowing": false
     },
     "cover": {
-      "visible": true,
+      "visible": false,
       "rect": {
         "top": 0,
-        "bottom": 756,
+        "bottom": 360,
         "width": 740,
-        "height": 756
+        "height": 360
       },
       "content": {
-        "top": 60,
-        "bottom": 734,
-        "width": 560,
-        "height": 674
+        "top": 104.078125,
+        "bottom": 255.90625,
+        "width": 666,
+        "height": 151.828125
       },
       "viewport": {
         "width": 740,
@@ -130,18 +130,18 @@
       "overflowing": false
     },
     "cover": {
-      "visible": true,
+      "visible": false,
       "rect": {
         "top": 0,
-        "bottom": 908,
+        "bottom": 800,
         "width": 1280,
-        "height": 908
+        "height": 800
       },
       "content": {
-        "top": 86.4375,
-        "bottom": 879.546875,
+        "top": 118.046875,
+        "bottom": 739.9375,
         "width": 560,
-        "height": 793.109375
+        "height": 621.890625
       },
       "viewport": {
         "width": 1280,
