@@ -393,12 +393,31 @@ document.querySelector("#app").innerHTML = `
 
     <section class="paper-section venue-section" id="venue" aria-labelledby="venue-title">
       <div class="section-shell venue-shell">
-        ${crest("venue-crest")}
-        <p class="section-kicker lang-km">${copy.km.venueKicker}</p><p class="section-kicker lang-en">${copy.en.venueKicker}</p>
-        <h2 class="section-title" id="venue-title"><span class="lang-km">${wedding.venue.kh}</span><span class="lang-en">${wedding.venue.en}</span></h2>
-        ${wedding.venue.addressKh !== wedding.venue.kh ? `<p class="venue-address lang-km">${wedding.venue.addressKh}</p>` : ""}
-        <p class="venue-address lang-en">${wedding.venue.addressEn}</p>
-        <div class="venue-meta"><span>${wedding.date.weekdayKh}</span><i>✦</i><span>${wedding.date.dayKh} ${wedding.date.monthKh} ${wedding.date.yearKh}</span><i>✦</i><span>${wedding.date.timeKh}</span></div>
+        <div class="venue-heading-card reveal-copy">
+          ${crest("venue-crest")}
+          <div class="venue-kicker-row">
+            <i aria-hidden="true"></i>
+            <p class="section-kicker lang-km">${copy.km.venueKicker}</p><p class="section-kicker lang-en">${copy.en.venueKicker}</p>
+            <i aria-hidden="true"></i>
+          </div>
+          <h2 class="venue-title" id="venue-title">
+            <span class="venue-title-copy lang-km">
+              <small>ស្ថិតនៅ</small>
+              <strong>${wedding.venue.nameKh}</strong>
+              <em>${wedding.venue.buildingKh}</em>
+            </span>
+            <span class="venue-title-copy lang-en">
+              <small>Wedding venue</small>
+              <strong>${wedding.venue.nameEn}</strong>
+              <em>${wedding.venue.buildingEn}</em>
+            </span>
+          </h2>
+          <div class="venue-meta" aria-label="Wedding date and time">
+            <span class="venue-meta-item venue-meta-weekday"><small><span class="lang-km">ថ្ងៃ</span><span class="lang-en">Day</span></small><strong><span class="lang-km">${wedding.date.weekdayKh}</span><span class="lang-en">${wedding.date.weekdayEn}</span></strong></span>
+            <span class="venue-meta-item venue-meta-date"><small><span class="lang-km">កាលបរិច្ឆេទ</span><span class="lang-en">Date</span></small><strong><span class="lang-km">${wedding.date.dayKh} ${wedding.date.monthKh} ${wedding.date.yearKh}</span><span class="lang-en">${wedding.date.dayEn} ${wedding.date.monthEn} ${wedding.date.yearEn}</span></strong></span>
+            <span class="venue-meta-item venue-meta-time"><small><span class="lang-km">ម៉ោង</span><span class="lang-en">Time</span></small><strong><span class="lang-km">${wedding.date.timeValueKh}</span><span class="lang-en">${wedding.date.timeValueEn}</span></strong></span>
+          </div>
+        </div>
         <div class="map-frame">
           <div class="map-badge" aria-hidden="true">
             <svg viewBox="0 0 24 24"><path d="M12 21s6-5.15 6-11a6 6 0 1 0-12 0c0 5.85 6 11 6 11Z"/><circle cx="12" cy="10" r="2.25"/></svg>

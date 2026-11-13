@@ -1,0 +1,100 @@
+[
+  {
+    "viewport": {
+      "name": "1280x800",
+      "width": 1280,
+      "height": 800
+    },
+    "checks": [
+      {
+        "id": "cover",
+        "scrollWidth": 1280,
+        "width": 1280,
+        "x": 0,
+        "y": 0,
+        "overflowing": false
+      },
+      {
+        "id": "words",
+        "scrollWidth": 1280,
+        "width": 1280,
+        "x": 0,
+        "y": 1680,
+        "overflowing": false
+      },
+      {
+        "id": "couple",
+        "scrollWidth": 1280,
+        "width": 1280,
+        "x": 0,
+        "y": 2742,
+        "overflowing": false
+      },
+      {
+        "id": "countdown",
+        "scrollWidth": 1280,
+        "width": 1280,
+        "x": 0,
+        "y": 4514,
+        "overflowing": false
+      },
+      {
+        "id": "programme",
+        "scrollWidth": 1280,
+        "width": 1280,
+        "x": 0,
+        "y": 6018,
+        "overflowing": false
+      },
+      {
+        "id": "story",
+        "scrollWidth": 1280,
+        "width": 1280,
+        "x": 0,
+        "y": 10440,
+        "overflowing": false
+      },
+      {
+        "id": "candle",
+        "scrollWidth": 1280,
+        "width": 1280,
+        "x": 0,
+        "y": 14776,
+        "overflowing": false
+      },
+      {
+        "id": "gallery",
+        "scrollWidth": 1280,
+        "width": 1280,
+        "x": 0,
+        "y": 15416,
+        "overflowing": false
+      },
+      {
+        "id": "venue",
+        "scrollWidth": 1280,
+        "width": 1280,
+        "x": 0,
+        "y": 17911,
+        "overflowing": false
+      },
+      {
+        "id": "gift",
+        "scrollWidth": 1280,
+        "width": 1280,
+        "x": 0,
+        "y": 19154,
+        "overflowing": false
+      },
+      {
+        "id": "finale",
+        "scrollWidth": 1280,
+        "width": 1280,
+        "x": 0,
+        "y": 19954,
+        "overflowing": false
+      }
+    ],
+    "errors": []
+  }
+]
