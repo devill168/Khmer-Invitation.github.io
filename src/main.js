@@ -429,7 +429,7 @@ document.querySelector("#app").innerHTML = `
       </div>
     </section>
 
-    <section class="finale-section" id="finale" aria-labelledby="thanks-title">
+    <section class="finale-section" id="finale" aria-labelledby="thanks-title" style="--finale-photo:url('${wedding.assets.finale}')">
       <div class="finale-photo" aria-hidden="true"></div>
       <div class="candle-row" aria-hidden="true">${Array(7).fill(0).map((_, i) => `<i style="--i:${i}"><b></b></i>`).join("")}</div>
       <div class="finale-content reveal-copy">

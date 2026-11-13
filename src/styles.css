@@ -409,7 +409,7 @@ button { color: inherit; font: inherit; }
 .gift-body { max-width: 590px; margin: 12px auto 38px; line-height: 1.9; color: rgba(240,228,200,.66); }
 
 .finale-section { min-height: 110svh; display: grid; place-items: center; padding: 120px 16px 80px; color: #f0e4c9; background: #0a0c08; text-align: center; }
-.finale-photo { position: absolute; inset: 0; background: linear-gradient(rgba(6,7,5,.68),rgba(6,7,5,.96)), url("/assets/pre-wedding-2000.webp") center 58%/cover; filter: saturate(.62); }
+.finale-photo { position: absolute; inset: 0; background: linear-gradient(rgba(6,7,5,.68),rgba(6,7,5,.96)), var(--finale-photo) center 58%/cover; filter: saturate(.62); }
 .finale-content { position: absolute; z-index: 3; top: clamp(18px, 4svh, 44px); left: 16px; right: 16px; width: min(670px, calc(100% - 32px)); margin-inline: auto; }
 .finale-crest { width: 120px; color: #d6b35f; }
 .finale-section .section-title { color: #e0c16f; font-size: clamp(1.4rem, 5vw, 2.5rem); }
@@ -563,6 +563,11 @@ button { color: inherit; font: inherit; }
   .programme-date { font-size: clamp(1.06rem, 4.5vw, 1.16rem); }
   .story-hint { font-size: .72rem; }
   .story-caption h3 { font-size: clamp(.86rem, 3.6vw, 1rem); }
+  .finale-photo { background-position: center, center top; background-size: cover, auto 108%; background-repeat: no-repeat; }
+  .finale-content { top: max(6px, env(safe-area-inset-top)); }
+  .finale-crest { width: 96px; }
+  .finale-section .section-title { font-size: clamp(1.18rem, 5vw, 1.4rem); }
+  .finale-content > p { max-width: 360px; margin: 5px auto 24px; font-size: clamp(.76rem, 3.3vw, .9rem); line-height: 1.72; }
   .finale-section footer { font-size: .68rem; }
 }
 

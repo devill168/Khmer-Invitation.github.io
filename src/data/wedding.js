@@ -110,6 +110,7 @@ export const wedding = {
     section3Background: assetUrl("section3-background-2200.webp"),
     programmeArt: assetUrl("icon-.png"),
     section10Background: assetUrl("section10-background-2200.webp"),
+    finale: assetUrl("finale-photo-2000.webp"),
     story: [
       { src: assetUrl("story-1-1600.webp"), position: "50% center" },
       { src: assetUrl("story-2-1600.webp"), position: "72% center" },
