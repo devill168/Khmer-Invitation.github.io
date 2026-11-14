@@ -1,13 +1,13 @@
 export const copy = {
   km: {
-    invitation: "សិរីសួស្តីអាពាហ៍ពិពាហ៍", invitationSub: "លិខិតអញ្ជើញ", open: "សូមចុចបើកធៀបការ", opening: "កំពុងបើកលិខិតអញ្ជើញ", respect: "សូមគោរពអញ្ជើញ", scroll: "សូមរំកិលចុះក្រោម",
+    invitation: "សិរីសួស្តីអាពាហ៍ពិពាហ៍", invitationSub: "លិខិតអញ្ជើញ", open: "សូមចុចបើកធៀបការ", opening: "កំពុងបើកលិខិតអញ្ជើញ", respect: "សូមគោរពអញ្ជើញ", scroll: "សូមអូសឡើងលើ",
     day: "ថ្ងៃ", date: "ទី", month: "ខែ", year: "ឆ្នាំ",
     parentsGroom: "មាតាបិតាកូនកំលោះ", parentsBride: "មាតាបិតាកូនក្រមុំ", formalTitle: "មានកិត្តិយសសូមគោរពអញ្ជើញ",
     formalBody: "ឯកឧត្តម លោកជំទាវ លោក លោកស្រី អ្នកនាង កញ្ញា និងប្រិយមិត្ត អញ្ជើញចូលរួមជាភ្ញៀវកិត្តិយស ដើម្បីប្រសិទ្ធពរជ័យ សិរីសួស្តី និងជ័យមង្គល ក្នុងពិធីរៀបអាពាហ៍ពិពាហ៍កូនប្រុស–ស្រីរបស់យើងខ្ញុំ។",
     groomLabel: "កូនប្រុសនាម", brideLabel: "កូនស្រីនាម", coupleTitle: "កូនកំលោះ និង កូនក្រមុំ", sonOf: "កូនប្រុសរបស់", daughterOf: "កូនស្រីរបស់", and: "",
     blessing: "សូមឱ្យគូស្វាមីភរិយាថ្មី ជួបតែសេចក្តីសុខ សុភមង្គល និងស្រឡាញ់គ្នារហូតដល់ចាស់ជរា ✦",
     countdown: "រាប់ថយក្រោយ ឆ្ពោះទៅថ្ងៃមង្គល", days: "ថ្ងៃ", hours: "ម៉ោង", minutes: "នាទី", seconds: "វិនាទី",
-    programme: "របៀបវីរៈ នៃកម្មវិធី", programmeDate: "ថ្ងៃចន្ទ ទី១១ ខែមករា ឆ្នាំ២០២៧", storyKicker: "សូមអញ្ជើញទស្សនា", storyTitle: "ដំណើររឿងនៃស្នេហ៍", storyHint: "រំកិលចុះក្រោមដើម្បីទស្សនា",
+    programme: "របៀបវារៈ នៃអាពាហ៍ពិពាហ៍", programmeDate: "ថ្ងៃចន្ទ ទី១១ ខែមករា ឆ្នាំ២០២៧", storyKicker: "សូមអញ្ជើញទស្សនា", storyTitle: "ដំណើររឿងនៃស្នេហ៍", storyHint: "រំកិលចុះក្រោមដើម្បីទស្សនា",
     candleKicker: "ក្រោមពន្លឺភ្លើងទៀន", candleHint: "សូមប៉ះលើផ្ទៃទឹក ដើម្បីបណ្ដែតប្រទីបក្ដីប្រាថ្នា", galleryKicker: "វិចិត្រសាលរូបភាព", galleryTitle: "អនុស្សាវរីយ៍មុនថ្ងៃមង្គល",
     venueKicker: "ទីកន្លែងប្រារព្ធពិធី", mapPending: "ផែនទីនឹងបង្ហាញនៅពេលបញ្ចូលទីតាំង", openMaps: "បើកផែនទី Google Maps", calendar: "កត់ចំណាំក្នុងប្រតិទិន",
     gift: "ចំណងដៃ", giftBody: "វត្តមានរបស់លោកអ្នក គឺជាកាដូដ៏មានតម្លៃបំផុត។<br/> សូមអភ័យទោសដែលយើងខ្ញុំមិនបានដាក់រូបភាព QR Code ខាងក្រោម ដើម្បីជៀសវាងប្រការណាមួយពីការក្លែងបន្លំតាមបណ្តាញប្រព័ន្ធអេឡិចត្រូនិច។", qrPending: "រង់ចាំរូប QR", saveQr: "រក្សាទុករូប QR",
@@ -15,7 +15,7 @@ export const copy = {
     shareTelegram: "ផ្ញើតាម Telegram", shareMessenger: "ផ្ញើតាម Messenger", shareFacebook: "ផ្ញើតាម Facebook", copyLink: "ចម្លងតំណភ្ជាប់", copied: "បានចម្លងតំណភ្ជាប់",
   },
   en: {
-    invitation: "The Wedding Invitation", invitationSub: "A celebration of love", open: "Open the invitation", opening: "Opening your invitation", respect: "Together with our families", scroll: "Scroll to continue",
+    invitation: "The Wedding Invitation", invitationSub: "A celebration of love", open: "Open the invitation", opening: "Opening your invitation", respect: "Together with our families", scroll: "Swipe up to continue",
     day: "Day", date: "Date", month: "Month", year: "Year",
     parentsGroom: "Groom's parents", parentsBride: "Bride's parents", formalTitle: "You are cordially invited",
     formalBody: "Together with our families, we respectfully invite you to share in the joy and offer your blessings as we celebrate the marriage of our son and daughter.",

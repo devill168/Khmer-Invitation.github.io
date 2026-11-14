@@ -13,6 +13,8 @@ import { wedding } from "./data/wedding";
 import { copy } from "./data/i18n";
 import "./styles.css";
 
+const assetBase = import.meta.env.BASE_URL;
+
 if ("scrollRestoration" in history) history.scrollRestoration = "manual";
 
 const resetPagePosition = () => window.scrollTo(0, 0);
@@ -239,11 +241,9 @@ document.querySelector("#app").innerHTML = `
       <div class="scroll-cue" aria-hidden="true">
         <span class="lang-km">${copy.km.scroll}</span><span class="lang-en">${copy.en.scroll}</span>
         <span class="scroll-hand">
-          <svg viewBox="0 0 24 24" focusable="false">
-            <path d="M9 11.24V7.5C9 6.12 10.12 5 11.5 5S14 6.12 14 7.5v3.74c1.21-.81 2-2.18 2-3.74C16 5.01 13.99 3 11.5 3S7 5.01 7 7.5c0 1.56.79 2.93 2 3.74Zm9.84 4.63-4.54-2.26a1.4 1.4 0 0 0-.54-.11H13v-6C13 6.67 12.33 6 11.5 6S10 6.67 10 7.5v10.74l-3.43-.72a1.1 1.1 0 0 0-.24-.03c-.31 0-.59.13-.79.33l-.79.8 4.94 4.94c.27.27.65.44 1.06.44h6.79c.75 0 1.33-.55 1.44-1.28l.75-5.27c.01-.07.02-.14.02-.2 0-.62-.38-1.16-.91-1.38Z"/>
-          </svg>
+          <img class="scroll-hand-motion" src="${assetBase}assets/hand-scroll-up.gif" alt="" decoding="async">
+          <img class="scroll-hand-static" src="${assetBase}assets/hand-scroll-up-static.webp" alt="" decoding="async">
         </span>
-        <i></i>
       </div>
     </section>
 
@@ -732,15 +732,23 @@ function initMotion() {
   const coverTopbar = cover.querySelector(".topbar");
   if (coverMedia && coverRevealContent.length && coverScrollCue && coverTopbar) {
     const coverScrollHand = coverScrollCue.querySelector(".scroll-hand");
+    const coverScrollImage = coverScrollHand?.querySelector(".scroll-hand-motion");
     let scrollCueVisible = true;
     let scrollCueTimer;
     const setScrollCueVisible = (visible) => {
       if (visible === scrollCueVisible) return;
       scrollCueVisible = visible;
       if (visible && coverScrollHand) {
-        coverScrollHand.style.animation = "none";
-        void coverScrollHand.offsetHeight;
-        coverScrollHand.style.animation = "";
+        coverScrollHand.getAnimations({ subtree: true }).forEach((animation) => {
+          animation.cancel();
+          animation.play();
+        });
+        if (coverScrollImage) {
+          const source = coverScrollImage.getAttribute("src");
+          coverScrollImage.removeAttribute("src");
+          void coverScrollImage.offsetHeight;
+          coverScrollImage.setAttribute("src", source);
+        }
       }
       gsap.to(coverScrollCue, {
         autoAlpha: visible ? 1 : 0,
