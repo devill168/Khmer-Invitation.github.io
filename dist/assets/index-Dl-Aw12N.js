@@ -42,8 +42,10 @@
     </div>
   </article>`).join(""),ph=()=>E.gallery.map((s,e)=>`
   <button class="gallery-item gallery-item--${e+1}" type="button" data-gallery-index="${e}" aria-label="${s.altKh}">
-    <img src="${s.src}" alt="${s.altKh}" style="object-position:${s.position}" loading="lazy" />
-    <span>0${e+1}</span>
+    <span class="gallery-photo-motion">
+      <img src="${s.src}" alt="${s.altKh}" style="object-position:${s.position}" loading="lazy" />
+    </span>
+    <span class="gallery-index">0${e+1}</span>
   </button>`).join(""),Ea=s=>`
   <p>លោក ${E.parents[s].father}</p>
   <p>អ្នកស្រី ${E.parents[s].mother}</p>`;document.querySelector("#app").innerHTML=`

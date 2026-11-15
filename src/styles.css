@@ -371,12 +371,15 @@ button { color: inherit; font: inherit; }
 .gallery-section { padding: clamp(110px, 14vw, 170px) 0; }
 .gallery-shell { max-width: 980px; }
 .masonry-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 42px; }
-.gallery-item { width: 100%; margin: 0; padding: 0; display: block; position: relative; border: 0; overflow: hidden; background: #24271a; cursor: zoom-in; }
-.gallery-item img { width: 100%; height: auto; aspect-ratio: .78; display: block; object-fit: cover; filter: saturate(.84); transition: transform .8s cubic-bezier(.2,.7,.2,1), filter .5s ease; }
-.gallery-item:nth-child(n+3):nth-child(-n+4) img { aspect-ratio: .74; }
-.gallery-item:nth-child(n+5):nth-child(-n+6) img { aspect-ratio: .7; }
+.gallery-item { width: 100%; margin: 0; padding: 0; display: block; position: relative; border: 0; overflow: hidden; isolation: isolate; background: #24271a; cursor: zoom-in; }
+.gallery-photo-motion { display: block; width: 100%; aspect-ratio: .78; transform-origin: 50% 50%; animation: galleryPhotoDrift 8.5s ease-in-out infinite alternate; will-change: transform; }
+.gallery-item:nth-child(even) .gallery-photo-motion { animation-direction: alternate-reverse; animation-duration: 10s; }
+.gallery-item:nth-child(3n) .gallery-photo-motion { animation-duration: 11.5s; }
+.gallery-photo-motion img { width: 100%; height: 100%; display: block; object-fit: cover; filter: saturate(.84); transition: transform .8s cubic-bezier(.2,.7,.2,1), filter .5s ease; }
+.gallery-item:nth-child(n+3):nth-child(-n+4) .gallery-photo-motion { aspect-ratio: .74; }
+.gallery-item:nth-child(n+5):nth-child(-n+6) .gallery-photo-motion { aspect-ratio: .7; }
 .gallery-item:hover img { transform: scale(1.04); filter: saturate(1); }
-.gallery-item span { position: absolute; right: 10px; bottom: 10px; padding: 4px 7px; border: 1px solid rgba(245,222,160,.4); color: #ead18b; background: rgba(8,9,6,.45); font: 600 .65rem/1 "Cormorant Garamond", serif; }
+.gallery-index { position: absolute; z-index: 2; right: 10px; bottom: 10px; padding: 4px 7px; border: 1px solid rgba(245,222,160,.4); color: #ead18b; background: rgba(8,9,6,.45); font: 600 .65rem/1 "Cormorant Garamond", serif; }
 .gallery-viewer { position: fixed; z-index: 50; inset: 0; display: grid; grid-template-columns: 48px 1fr 48px; place-items: center; padding: 50px 8px; background: rgba(5,6,4,.96); opacity: 0; visibility: hidden; transition: .35s ease; }
 .gallery-viewer.is-open { opacity: 1; visibility: visible; }
 .gallery-viewer img { max-width: 100%; max-height: 84svh; object-fit: contain; box-shadow: 0 30px 80px rgba(0,0,0,.6); }
@@ -599,6 +602,10 @@ button { color: inherit; font: inherit; }
   78% { transform: translate3d(-5px, -5px, 0) rotate(-6deg) scale(.92, 1); }
 }
 @keyframes coupleButterflyGlow { 0%, 100% { opacity: .45; transform: scale(.78); } 50% { opacity: .95; transform: scale(1.14); } }
+@keyframes galleryPhotoDrift {
+  0% { transform: scale(1.025) translate3d(-1.2%, .5%, 0); }
+  100% { transform: scale(1.085) translate3d(1.2%, -1%, 0); }
+}
 
 @media (max-width: 680px) {
   .cover-photo { background-position: 44% 56%; }

@@ -104,8 +104,10 @@ const storyCards = () => wedding.story.map((item, index) => `
 
 const galleryCards = () => wedding.gallery.map((item, index) => `
   <button class="gallery-item gallery-item--${index + 1}" type="button" data-gallery-index="${index}" aria-label="${item.altKh}">
-    <img src="${item.src}" alt="${item.altKh}" style="object-position:${item.position}" loading="lazy" />
-    <span>0${index + 1}</span>
+    <span class="gallery-photo-motion">
+      <img src="${item.src}" alt="${item.altKh}" style="object-position:${item.position}" loading="lazy" />
+    </span>
+    <span class="gallery-index">0${index + 1}</span>
   </button>`).join("");
 
 const parentLines = (side) => `
